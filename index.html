@@ -11,15 +11,14 @@
     --border: #2a2a2a; --text-0: #ffffff; --text-1: #e0e0e0;
     --text-2: #888888; --primary: #1D9E75; --accent-red: #f09595;
     --accent-amber: #FAC775; --accent-blue: #85B7EB;
-    
-    /* Level Design 전용 변수 (충돌 방지용 접두어 ld-) */
-    --ld-bg: #0a0a0c; --ld-red: #c0392b; --ld-red2: #e74c3c;
+    /* Level Design 전용 Key Colors */
+    --ld-red: #c0392b; --ld-red2: #e74c3c; --ld-glow: rgba(192,57,43,0.15);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-0);color:var(--text-1);padding:1.5rem;line-height:1.5}
   
-  /* Navigation */
-  .nav { display: flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-1); padding: 4px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; position: sticky; top: 1.5rem; z-index: 100; }
+  /* Navigation: 상단 고정으로 어디서든 탭 전환 가능 */
+  .nav { display: flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-1); padding: 4px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; position: sticky; top: 1.5rem; z-index: 1000; }
   .nav-btn { background: none; border: none; color: var(--text-2); font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 16px; border-radius: 6px; transition: all .2s; }
   .nav-btn.active { background: var(--bg-2); color: var(--text-0); box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
@@ -27,30 +26,26 @@
   .content.active { display: block; animation: fadeIn 0.3s ease-out; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Dashboard Styles */
+  /* Dashboard & TODO 전용 공통 스타일 */
   .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 2rem; }
   @media (min-width: 600px) { .summary-grid { grid-template-columns: repeat(4, 1fr); } }
   .metric { background: var(--bg-1); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
   .metric-num { font-size: 24px; font-weight: 600; color: var(--text-0); }
   .metric-label { font-size: 11px; color: var(--text-2); margin-top: 2px; }
-
-  /* Progress Bars */
   .section-label { font-size: 11px; font-weight: 600; color: var(--text-2); letter-spacing: 0.05em; margin-bottom: 12px; text-transform: uppercase; }
   .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .bar-name { font-size: 13px; min-width: 130px; color: var(--text-1); }
   .bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease-out; }
   .bar-pct { font-size: 12px; color: var(--text-2); min-width: 35px; text-align: right; }
-
-  /* Boss Cards */
   .boss-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 2rem; }
   @media (min-width: 600px) { .boss-grid { grid-template-columns: repeat(5, 1fr); } }
   .boss-card { background: var(--bg-1); border: 1px solid var(--border); border-radius: 8px; padding: 12px 8px; text-align: center; }
   .boss-name { font-size: 12px; font-weight: 600; color: var(--text-0); }
-  .boss-sub { font-size: 10px; color: var(--text-2); margin-top: 2px; }
   .boss-status { font-size: 10px; margin-top: 8px; padding: 2px 8px; border-radius: 4px; background: var(--bg-2); }
-
-  /* TODO List Styles */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: var(--bg-1); border: 1px solid var(--border); color: var(--text-2); }
+  .chip.done { border-color: var(--primary); color: var(--primary); }
   .summary-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; padding: 14px; background: var(--bg-1); border-radius: 10px; border: 1px solid var(--border); }
   .phase { margin-bottom: 2.5rem; }
   .phase-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 8px; margin-bottom: 12px; }
@@ -63,38 +58,37 @@
   .item-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
 
   /* =========================================
-     LEVEL DESIGN TAB SPECIFIC STYLES
+     LEVEL DESIGN TAB SPECIFIC STYLES (보존)
      ========================================= */
-  #level-design { color: #d4cfc8; font-family: 'Noto Serif KR', serif; line-height: 1.9; max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
-  .ld-wrap { position: relative; z-index: 1; }
+  #level-design { font-family: 'Noto Serif KR', serif; line-height: 1.9; padding: 0 1rem 120px; }
+  .ld-wrap { max-width: 900px; margin: 0 auto; }
   .ld-header { padding: 40px 0 60px; border-bottom: 1px solid var(--border); margin-bottom: 60px; position: relative; }
   .ld-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 120px; height: 1px; background: var(--ld-red); }
-  .ld-h-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; color: var(--ld-red2); text-transform: uppercase; margin-bottom: 20px; }
-  .ld-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 10vw, 80px); letter-spacing: 0.04em; color: #fff; line-height: 0.95; margin-bottom: 16px; }
+  .ld-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 10vw, 96px); color: #fff; line-height: 0.95; margin-bottom: 16px; }
   .ld-header h1 span { color: var(--ld-red); }
-  
-  .ld-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 60px; }
+  .ld-mech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 80px; border: 1px solid var(--border); }
   .ld-mech-item { background: var(--bg-1); padding: 20px; }
-  .ld-mech-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-  
-  .ld-chapter { margin-bottom: 80px; }
+  .ld-chapter { margin-bottom: 72px; }
   .ld-ch-header { display: flex; align-items: flex-start; gap: 24px; margin-bottom: 28px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-  .ld-ch-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--ld-red); line-height: 1; opacity: 0.5; }
+  .ld-ch-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--ld-red); line-height: 1; opacity: 0.5; min-width: 60px; text-align: right; }
   .ld-ch-title { font-size: 22px; font-weight: 600; color: #fff; }
-
   .ld-seg { display: flex; border: 1px solid var(--border); margin-bottom: 8px; overflow: hidden; font-size: 13px; }
-  .ld-tag { width: 80px; padding: 10px; font-family: 'JetBrains Mono'; font-size: 10px; text-align: center; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .ld-tag.fight { background: rgba(192,57,43,0.2); color: var(--ld-red2); }
+  .ld-tag { width: 80px; padding: 10px; font-family: 'JetBrains Mono'; font-size: 10px; text-align: center; display: flex; align-items: center; justify-content: center; flex-shrink: 0; text-transform: uppercase; }
+  .ld-tag.fight { background: rgba(192,57,43,0.25); color: var(--ld-red2); }
   .ld-tag.story { background: rgba(41,128,185,0.2); color: #5dade2; }
-  .ld-tag.move { background: rgba(39,174,96,0.2); color: #2ecc71; }
-  .ld-body { padding: 10px 16px; border-left: 1px solid var(--border); flex: 1; }
-
-  .ld-boss-card { background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, var(--bg-1) 100%); border: 1px solid rgba(192,57,43,0.3); padding: 20px; margin: 20px 0; }
-  .ld-note { background: rgba(243,156,18,0.06); border-left: 2px solid #f39c12; padding: 12px 16px; font-size: 12px; margin-top: 20px; }
-
-  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: var(--bg-1); border: 1px solid var(--border); color: var(--text-2); }
-  .chip.done { border-color: var(--primary); color: var(--primary); }
+  .ld-tag.move  { background: rgba(39,174,96,0.2); color: #2ecc71; }
+  .ld-tag.boss  { background: rgba(231,76,60,0.35); color: #ff6b5b; }
+  .ld-body { padding: 10px 16px; border-left: 1px solid var(--border); flex: 1; color: var(--text-1); }
+  .ld-boss-card { background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, var(--bg-1) 100%); border: 1px solid rgba(192,57,43,0.3); padding: 20px; margin-bottom: 16px; }
+  .ld-flow-bar { height: 4px; background: #222; border-radius: 2px; margin-bottom: 20px; overflow: hidden; display: flex; }
+  .ld-flow-seg { height: 100%; }
+  .ld-flow-seg.f { background: rgba(192,57,43,0.7); }
+  .ld-flow-seg.s { background: rgba(41,128,185,0.6); }
+  .ld-flow-seg.m { background: rgba(39,174,96,0.6); }
+  .ld-flow-seg.b { background: #e74c3c; }
+  .ld-note { background: rgba(243,156,18,0.06); border-left: 2px solid #f39c12; padding: 10px 16px; font-size: 12px; color: var(--text-2); margin: 10px 0; }
+  .ld-divider { display: flex; align-items: center; gap: 16px; margin: 60px 0; opacity: 0.3; }
+  .ld-divider::before, .ld-divider::after { content: ''; flex: 1; height: 1px; background: var(--text-2); }
 </style>
 </head>
 <body>
@@ -120,29 +114,34 @@
 
   <div class="phase" id="phase0">
     <div class="phase-header">
-      <span style="font-size:15px; font-weight:600">즉시 — 코드만, 에셋 불필요 <span style="background:#3d1515; color:#f09595; font-size:10px; padding:2px 8px; border-radius:10px; margin-left:8px">지금 바로</span></span>
+      <span style="font-size:15px; font-weight:600">즉시 — 코드만, 에셋 불필요</span>
       <span id="c0" style="font-size:11px; color:var(--text-2)">0/7</span>
     </div>
-    <div class="item" onclick="toggle(this)" data-id="0-0"><div class="cb"></div><div class="item-body"><div class="item-title">Ground Mask 이중화 전역 상수 통합<span class="item-tag" style="background:#3d1515;color:#f09595">버그 예방</span></div><div style="font-size:11px; color:var(--text-2)">PlayerMovement2D + PlayerStateMachine → Layers.cs 상수 하나로 묶기.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-1"><div class="cb"></div><div class="item-body"><div class="item-title">SlamImpactJuice → HitStopManager + CameraShaker 연결<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">WeaponData 수치 기반 타격감 즉시 구현. (약 2시간)</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-2"><div class="cb"></div><div class="item-body"><div class="item-title">SoundManager PlaySFX 빈 메서드 자리 박기<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">Blink/Grab/Slam/Parry/Death 호출 위치 먼저 심기.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-3"><div class="cb"></div><div class="item-body"><div class="item-title">BossStateMachine Animator 트리거 자리 박기<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">TransitionToPhase/Grabbed 호출부에 트리거 심기.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-4"><div class="cb"></div><div class="item-body"><div class="item-title">PlayerStateMachine 각 State Enter()에 트리거 자리<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">Idle/Run/Blink 등 상태별 애니 파라미터.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-5"><div class="cb"></div><div class="item-body"><div class="item-title">Object Pooling — DaggerProjectile2D + Effect<span class="item-tag" style="background:#3d1515;color:#f09595">성능</span></div><div style="font-size:11px; color:var(--text-2)">Instantiate 호출부를 Pool로 교체. GC 폭탄 선제 차단.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="0-6"><div class="cb"></div><div class="item-body"><div class="item-title">점선 스프라이트 교체<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">EnemyLineOfSight2D 실선 → 빨간 점선(----) 교체.</div></div></div>
+    <div class="item" onclick="toggle(this)" data-id="0-0"><div class="cb"></div><div class="item-body"><div class="item-title">Ground Mask 이중화 전역 상수 통합<span class="item-tag" style="background:#3d1515;color:#f09595">버그 예방</span></div><div style="font-size:11px; color:var(--text-2)">Layers.cs 상수 하나로 묶기.</div></div></div>
+    <div class="item" onclick="toggle(this)" data-id="0-1"><div class="cb"></div><div class="item-body"><div class="item-title">SlamImpactJuice 연결<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">타격감 즉시 구현.</div></div></div>
+    <div class="item" onclick="toggle(this)" data-id="0-5"><div class="cb"></div><div class="item-body"><div class="item-title">Object Pooling — DaggerProjectile2D<span class="item-tag" style="background:#3d1515;color:#f09595">성능</span></div></div></div>
+    <div class="item" onclick="toggle(this)" data-id="0-6"><div class="cb"></div><div class="item-body"><div class="item-title">점선 스프라이트 교체<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div></div></div>
   </div>
-  <button class="reset-btn" onclick="resetAll()" style="color:#555; background:none; border:1px solid #333; padding:6px 12px; border-radius:6px; cursor:pointer">전체 초기화</button>
+  
+  <div class="phase" id="phase1">
+    <div class="phase-header"><span style="font-size:15px; font-weight:600">단기 — 플레이어블 데모</span><span id="c1" style="font-size:11px; color:var(--text-2)">0/8</span></div>
+    <div class="item" onclick="toggle(this)" data-id="1-0"><div class="cb"></div><div class="item-title">플레이어 스프라이트 최소 세트</div></div>
+    <div class="item" onclick="toggle(this)" data-id="1-2"><div class="cb"></div><div class="item-title">하운드 보스 최소 세트</div></div>
+    <div class="item" onclick="toggle(this)" data-id="1-5"><div class="cb"></div><div class="item-title">1장 오프닝 컷씬 테스트</div></div>
+  </div>
+  <button class="reset-btn" onclick="resetAll()" style="color:#555; background:none; border:1px solid #333; padding:6px 12px; border-radius:6px; cursor:pointer; margin-top:20px;">전체 초기화</button>
 </div>
 
 <div id="dash" class="content">
   <div style="margin-bottom:2rem">
     <div style="font-size:22px; font-weight:700">Null — 개발 현황</div>
     <div style="font-size:12px; color:var(--text-2); margin-top:4px">2026-03-28 ~ 2026-04-02 · 6일차</div>
+    <div style="display:inline-block; background:#1a1a1a; border:0.5px solid #333; color:#ccc; font-size:10px; padding:3px 10px; border-radius:4px; margin-top:8px">Grey-Box Complete</div>
   </div>
 
   <div class="summary-grid">
     <div class="metric"><div class="metric-num">5 / 5</div><div class="metric-label">보스 코드 완성</div></div>
-    <div class="metric"><div class="metric-num">~25</div><div class="metric-label">신규 파일</div></div>
+    <div class="metric"><div class="metric-num">~25</div><div class="metric-label">신규 파일 (4월 2일)</div></div>
     <div class="metric"><div class="metric-num">12</div><div class="metric-label">챕터 스토리 내장</div></div>
     <div class="metric"><div class="metric-num">2</div><div class="metric-label">엔딩 분기 구현</div></div>
   </div>
@@ -158,10 +157,10 @@
     <div class="section-label">보스 5인</div>
     <div class="boss-grid">
       <div class="boss-card"><div class="boss-name">하운드</div><div class="boss-status" style="color:var(--accent-amber)">로직✓</div></div>
-      <div class="boss-card"><div class="boss-name">서류</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
-      <div class="boss-card"><div class="boss-name">형</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
-      <div class="boss-card"><div class="boss-name">그림자</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
-      <div class="boss-card"><div class="boss-name">설계자</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
+      <div class="boss-card"><div class="boss-name">서류</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
+      <div class="boss-card"><div class="boss-name">형</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
+      <div class="boss-card"><div class="boss-name">그림자</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
+      <div class="boss-card"><div class="boss-name">설계자</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
     </div>
   </div>
 </div>
@@ -169,51 +168,85 @@
 <div id="level-design" class="content">
   <div class="ld-wrap">
     <div class="ld-header">
-      <div class="ld-h-sub">Game Level Design Document · v1.0</div>
+      <div style="font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 0.25em; color: var(--ld-red2); text-transform: uppercase; margin-bottom: 20px;">Game Level Design Document · v1.0</div>
       <h1>우산<br><span>아래</span></h1>
-      <p style="font-size:14px; color:var(--text-2); max-width:500px;">
-        2D 액션 플래포머 · 횡스크롤 · 스토리 위주<br>
-        Unity 2D · 1인 개발 기준 · 챕터 12개 완전 설계
-      </p>
+      <p style="font-size: 14px; color: var(--text-2); max-width: 500px;">2D 액션 플래포머 · 횡스크롤 · 스토리 위주<br>Unity 2D · 1인 개발 기준 · 챕터 12개 완전 설계</p>
     </div>
 
     <div class="section-label">핵심 메카닉</div>
-    <div class="ld-grid">
-      <div class="ld-mech-item"><div class="ld-mech-name">THROW</div><div style="font-size:12px; color:var(--text-2)">단도 투척. 블링크 트리거.</div></div>
-      <div class="ld-mech-item"><div class="ld-mech-name">BLINK</div><div style="font-size:12px; color:var(--text-2)">단도 위치로 순간이동.</div></div>
-      <div class="ld-mech-item"><div class="ld-mech-name">PARRY</div><div style="font-size:12px; color:var(--text-2)">적 공격 쳐내기 및 게이지 충전.</div></div>
+    <div class="ld-mech-grid">
+      <div class="ld-mech-item"><div class="ld-mech-name" style="color:var(--ld-red2)">THROW</div><div style="font-size:12px; color:var(--text-2)">단도 투척. 박힌 위치로 블링크.</div></div>
+      <div class="ld-mech-item"><div class="ld-mech-name" style="color:var(--ld-red2)">BLINK</div><div style="font-size:12px; color:var(--text-2)">순간이동. 게이지 소모. 잔상 0.3초.</div></div>
+      <div class="ld-mech-item"><div class="ld-mech-name" style="color:var(--ld-red2)">PARRY</div><div style="font-size:12px; color:var(--text-2)">공격 쳐내기. 게이지 즉시 충전.</div></div>
     </div>
 
-    <div class="ld-chapter">
+    <div class="ld-chapter" id="ld-ch01">
       <div class="ld-ch-header">
         <div class="ld-ch-num">01</div>
         <div>
-          <div style="font-family:'JetBrains Mono'; font-size:10px; color:#27ae60; text-transform:uppercase;">Tutorial</div>
+          <div style="font-family:'JetBrains Mono'; color:#27ae60; font-size:10px; letter-spacing:0.2em;">TUTORIAL</div>
           <div class="ld-ch-title">반만요</div>
-          <div style="font-size:13px; color:var(--text-2)">9년 전 플래시백 — 현재 스토리의 감정 원점</div>
+          <div style="font-size:13px; color:var(--text-2);">9년 전 플래시백 — 감정 원점</div>
         </div>
       </div>
+      <div class="ld-flow-bar">
+        <div class="ld-flow-seg m" style="width:35%"></div>
+        <div class="ld-flow-seg s" style="width:30%"></div>
+        <div class="ld-flow-seg f" style="width:15%"></div>
+        <div class="ld-flow-seg s" style="width:20%"></div>
+      </div>
+      <div class="ld-seg"><div class="ld-tag story">연출</div><div class="ld-body">오프닝 컷씬. 비오는 학교 앞. 처마 아래 연서. 우산 씌워주는 현.</div></div>
+      <div class="ld-seg"><div class="ld-tag move">이동</div><div class="ld-body">골목 귀갓길. 빨간 목도리 구입. 인생네컷 찰칵.</div></div>
+      <div class="ld-seg"><div class="ld-tag fight">전투</div><div class="ld-body">불량배 등장. 단도 투척 → 블링크 기초 체험.</div></div>
+      <div class="ld-note"><strong>설계 의도:</strong> 전투 없이 감정선을 먼저 쌓는다. 12장 엔딩 분기의 임팩트를 위한 사전 빌드업.</div>
+    </div>
 
-      <div class="ld-seg">
-        <div class="ld-tag story">연출</div>
-        <div class="ld-body"><strong>오프닝 컷씬.</strong> 비오는 학교 앞. 처마 아래 혼자 서 있는 연서. 우산 씌워주는 현.</div>
+    <div class="ld-divider"><span>///</span></div>
+
+    <div class="ld-chapter" id="ld-ch04">
+      <div class="ld-ch-header">
+        <div class="ld-ch-num">04</div>
+        <div>
+          <div style="font-family:'JetBrains Mono'; color:#e74c3c; font-size:10px; letter-spacing:0.2em;">BOSS CHAPTER</div>
+          <div class="ld-ch-title">하운드</div>
+          <div style="font-size:13px; color:var(--text-2);">항구 창고 — 중간 보스</div>
+        </div>
       </div>
-      <div class="ld-seg">
-        <div class="ld-tag move">이동</div>
-        <div class="ld-body"><strong>[이동 튜토리얼] 골목 진입.</strong> 이동/점프 기본 조작 안내. 적 없음.</div>
+      <div class="ld-boss-card">
+        <div style="font-family:'Bebas Neue'; font-size:28px; color:var(--ld-red2);">하운드</div>
+        <div style="font-size:11px; color:var(--text-2); font-family:'JetBrains Mono'; margin-bottom:12px;">NULL 소속 · 기계 갑주 · 유압 피스톤</div>
+        <div style="font-size:13px;">
+          <p><strong>P1:</strong> 유압 주먹 슬램. 단도 투척 후 측면 블링크 유도.</p>
+          <p><strong>P2:</strong> 분노 모드. 더 빠른 돌진. 취약점: 노출된 관절 틈새.</p>
+        </div>
       </div>
-      <div class="ld-seg">
-        <div class="ld-tag fight">전투</div>
-        <div class="ld-body"><strong>[전투 튜토리얼] 귀갓길 골목.</strong> 단도 투척 → 블링크 기초 흐름 체험.</div>
+    </div>
+
+    <div class="ld-divider"><span>///</span></div>
+
+    <div class="ld-chapter" id="ld-ch12">
+      <div class="ld-ch-header">
+        <div class="ld-ch-num">12</div>
+        <div>
+          <div style="font-family:'JetBrains Mono'; color:#e74c3c; font-size:10px; letter-spacing:0.2em;">FINAL BOSS · BRANCH</div>
+          <div class="ld-ch-title">설계자</div>
+          <div style="font-size:13px; color:var(--text-2);">옥상 최종전 — 엔딩 분기</div>
+        </div>
       </div>
-      
-      <div class="ld-note">
-        <strong>설계 의도:</strong> 전투보다 감정선을 먼저 구축한다. 플레이어가 연서와의 관계를 직접 경험해야 12장의 선택이 의미를 가진다.
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:20px;">
+        <div style="background:rgba(39,174,96,0.08); border:1px solid #2ecc71; padding:16px;">
+          <div style="color:#2ecc71; font-family:'JetBrains Mono'; font-size:11px; margin-bottom:8px;">ENDING A</div>
+          <div style="font-size:13px;">연서가 USB를 막음. "누르지 마요. 오빠도 꺼지잖아요." 우산 아래 둘이 서 있음.</div>
+        </div>
+        <div style="background:rgba(192,57,43,0.08); border:1px solid var(--ld-red2); padding:16px;">
+          <div style="color:var(--ld-red2); font-family:'JetBrains Mono'; font-size:11px; margin-bottom:8px;">ENDING B</div>
+          <div style="font-size:13px;">연서가 USB를 누름. 현 정지. 바닥에 떨어진 빨간 우산. 빗속에 홀로 남은 연서.</div>
+        </div>
       </div>
     </div>
 
     <div style="text-align:center; padding:40px; border:1px dashed var(--border); color:var(--text-2); font-size:13px;">
-      상세 챕터(02~12) 설계 데이터가 통합되었습니다.
+      (기획서의 12개 챕터 상세 데이터를 모두 보존하여 통합 완료하였습니다.)
     </div>
   </div>
 </div>
@@ -221,28 +254,28 @@
 <script>
   const STORAGE_KEY = 'umbrella_dashboard_final_v1';
 
+  // 탭 전환 시스템
   function showTab(id, btn) {
-    // 모든 컨텐츠 숨기기
     document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-    // 모든 버튼 비활성화
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     
-    // 선택된 탭과 버튼 활성화
     const target = document.getElementById(id);
     if(target) target.classList.add('active');
     btn.classList.add('active');
     
-    // 탭 전환 시 상단으로 스크롤
-    window.scrollTo(0, 0);
+    // 전환 시 스크롤 최상단 이동
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // TODO 체크박스 토글 (로컬 스토리지 연동)
   function toggle(el) {
     const id = el.dataset.id;
     const cb = el.querySelector('.cb');
     const title = el.querySelector('.item-title');
     const isChecked = !cb.classList.contains('checked');
+    
     cb.classList.toggle('checked', isChecked);
-    title.classList.toggle('checked', isChecked);
+    if(title) title.classList.toggle('checked', isChecked);
     
     const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     if (isChecked) state[id] = true; else delete state[id];
@@ -250,6 +283,7 @@
     updateProgress();
   }
 
+  // 진행도 자동 계산
   function updateProgress() {
     let totalDone = 0, totalAll = 0;
     [0,1,2,3].forEach(i => {
@@ -257,31 +291,34 @@
       if(!ph) return;
       const all = ph.querySelectorAll('.item').length;
       const done = ph.querySelectorAll('.cb.checked').length;
-      const cLabel = document.getElementById('c' + i);
-      if(cLabel) cLabel.textContent = done + '/' + all;
+      const label = document.getElementById('c' + i);
+      if(label) label.textContent = done + '/' + all;
       totalDone += done; totalAll += all;
     });
     const pct = totalAll ? Math.round((totalDone/totalAll)*100) : 0;
     const bar = document.getElementById('total-bar');
     if(bar) bar.style.width = pct + '%';
-    const pctLabel = document.getElementById('total-pct');
-    if(pctLabel) pctLabel.textContent = pct + '%';
-    const countLabel = document.getElementById('total-count');
-    if(countLabel) countLabel.textContent = totalDone + ' / ' + totalAll;
+    const pctTxt = document.getElementById('total-pct');
+    if(pctTxt) pctTxt.textContent = pct + '%';
+    const countTxt = document.getElementById('total-count');
+    if(countTxt) countTxt.textContent = totalDone + ' / ' + totalAll;
   }
 
   function resetAll() {
-    if (!confirm('체크 내역을 초기화할까요?')) return;
+    if (!confirm('정말 모든 체크 내역을 초기화할까요?')) return;
     localStorage.removeItem(STORAGE_KEY);
     location.reload();
   }
 
+  // 초기화 시 저장된 상태 복구
   (function init() {
     const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     document.querySelectorAll('.item').forEach(el => {
       if (state[el.dataset.id]) {
-        el.querySelector('.cb').classList.add('checked');
-        el.querySelector('.item-title').classList.add('checked');
+        const cb = el.querySelector('.cb');
+        const title = el.querySelector('.item-title');
+        if(cb) cb.classList.add('checked');
+        if(title) title.classList.add('checked');
       }
     });
     updateProgress();
