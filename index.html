@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -293,6 +294,83 @@
     white-space:nowrap; flex-shrink:0;
   }
   .back-home:hover { color: #e74c3c; border-color: rgba(231,76,60,0.5); }
+
+
+  /* ── DEVLOG DETAIL PAGES ── */
+  .log-detail { padding: 0 0 60px; }
+  .log-detail .hero {
+    padding: 36px 0 28px;
+    max-width: 100%;
+    margin: 0 0 0;
+    border-bottom: 1px solid #1e1e1e;
+    margin-bottom: 32px;
+  }
+  .log-detail .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .log-detail .hero-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .log-detail .hero h1 { font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+  .log-detail .hero-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .log-detail .hero-kw {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: #444; border: 1px solid #2a2a2a; padding: 3px 10px; letter-spacing: 0.08em;
+  }
+  .log-detail .main { padding: 0; }
+  .log-detail .sec { margin-bottom: 32px; }
+  .log-detail .sec-head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #1e1e1e;
+  }
+  .log-detail .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; letter-spacing: 0.1em; flex-shrink: 0; }
+  .log-detail .sec-title { font-size: 14px; font-weight: 700; color: #fff; }
+  .log-detail .sec-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; margin-left: auto; }
+  .log-detail .badge-spike { background: rgba(29,158,117,.15); color: #1D9E75; }
+  .log-detail .badge-fix   { background: rgba(240,149,149,.12); color: #f09595; }
+  .log-detail .badge-arch  { background: rgba(133,183,235,.12); color: #85B7EB; }
+  .log-detail .badge-todo  { background: rgba(250,199,117,.12); color: #FAC775; }
+  .log-detail .badge-perf  { background: rgba(175,169,236,.12); color: #AFA9EC; }
+  .log-detail .card {
+    background: #141414; border: 1px solid #222; border-left: 3px solid var(--accent,#333);
+    padding: 16px 18px; margin-bottom: 8px; border-radius: 0 6px 6px 0;
+  }
+  .log-detail .card-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .log-detail .card-body { font-size: 13px; color: #888; line-height: 1.75; }
+  .log-detail .card-body p { margin-bottom: 6px; }
+  .log-detail .card-body p:last-child { margin-bottom: 0; }
+  .log-detail code {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    background: #1f1f1f; color: #85B7EB; padding: 1px 6px; border-radius: 3px;
+  }
+  .log-detail .tbl-wrap { overflow-x: auto; margin-bottom: 10px; }
+  .log-detail table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .log-detail th { background: #181818; color: #666; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; text-align: left; border-bottom: 1px solid #252525; }
+  .log-detail td { padding: 9px 12px; border-bottom: 1px solid #1e1e1e; color: #e0e0e0; vertical-align: top; }
+  .log-detail tr:hover td { background: #181818; }
+  .log-detail .checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .log-detail .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #666; }
+  .log-detail .checklist li::before { content: ''; width: 14px; height: 14px; border: 1px solid #333; border-radius: 3px; flex-shrink: 0; margin-top: 2px; }
+  .log-detail .checklist li.done { color: #555; }
+  .log-detail .checklist li.done::before { content: '✓'; background: #1D9E75; border-color: #1D9E75; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .log-detail .callout { border-left: 2px solid var(--accent-c,#555); background: rgba(255,255,255,.02); padding: 12px 16px; margin-bottom: 10px; font-size: 13px; color: #777; }
+  .log-detail .callout.warn  { --accent-c:#FAC775; background: rgba(250,199,117,.04); }
+  .log-detail .callout.info  { --accent-c:#85B7EB; background: rgba(133,183,235,.04); }
+  .log-detail .callout strong { color: #e0e0e0; }
+  .log-detail .bug { background: #181818; border: 1px solid #252525; padding: 13px 16px; margin-bottom: 8px; border-radius: 4px; }
+  .log-detail .bug-id { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #f09595; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .log-detail .bug-desc { font-size: 13px; color: #777; line-height: 1.7; }
+  .log-detail .tree { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #555; background: #181818; border: 1px solid #222; padding: 16px 20px; line-height: 2; white-space: pre; overflow-x: auto; }
+
+  /* 뒤로가기 버튼 (로그 상세 내) */
+  .log-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: none; border: 1px solid #252525; color: #444;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.08em; padding: 5px 12px; cursor: pointer;
+    margin-bottom: 24px; transition: all .18s; border-radius: 0;
+  }
+  .log-back:hover { color: #85B7EB; border-color: rgba(133,183,235,.4); }
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -1109,7 +1187,7 @@
     <div class="section-label">시스템 완성도</div>
     <div class="bar-row"><span class="bar-name">플레이어 FSM</span><div class="bar-track"><div class="bar-fill" style="width:92%; background:var(--primary)"></div></div><span class="bar-pct">92%</span></div>
     <div class="bar-row"><span class="bar-name">단도 블링크</span><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--primary)"></div></div><span class="bar-pct">95%</span></div>
-    <div class="bar-row"><span class="bar-name">레벨 디자인</span><div class="bar-track"><div class="bar-fill" style="width:97%; background:var(--primary)"></div></div><span class="bar-pct">97%</span></div>
+    <div class="bar-row"><span class="bar-name">레벨 디자인</span><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--primary)"></div></div><span class="bar-pct">97%</span></div>
     <div class="bar-row"><span class="bar-name">그랩 / 슬램</span><div class="bar-track"><div class="bar-fill" style="width:80%; background:var(--primary)"></div></div><span class="bar-pct">80%</span></div>
     <div class="bar-row"><span class="bar-name">보스 프레임워크</span><div class="bar-track"><div class="bar-fill" style="width:90%; background:var(--primary)"></div></div><span class="bar-pct">90%</span></div>
     <div class="bar-row"><span class="bar-name">스토리 파이프라인</span><div class="bar-track"><div class="bar-fill" style="width:88%; background:var(--primary)"></div></div><span class="bar-pct">88%</span></div>
@@ -1152,7 +1230,7 @@
     // 타겟 콘텐츠 표시
     document.getElementById(id).classList.add('active');
     // 페이지 타이틀 업데이트
-    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS' };
+    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS', log0328: '03-28 Dagger Blink', log0329: '03-29 Auto Blink', log0331: '03-31 리팩토링', log0401a: '04-01 리팩토링 2', log0401b: '04-01 FSM', log0402: '04-02 Boss & Story', log0403a: '04-03 컴파일', log0403b: '04-03 인프라', log0404: '04-04 Git & Physics' };
     document.getElementById('page-title').textContent = titles[id] || '';
     window.scrollTo(0,0);
   }
@@ -2297,63 +2375,63 @@
   <!-- 목차 카드 리스트 -->
   <div style="display:flex;flex-direction:column;gap:8px">
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#5DCAA5">
+    <div class="log-card" onclick="goTo('log0328')" style="--lc:#5DCAA5">
       <div class="log-date">2026-03-28</div>
       <div class="log-title">Dagger Blink System 기틀 마련 및 벽 타기 구현</div>
       <div class="log-tags"><span class="log-tag">블링크</span><span class="log-tag">벽타기</span><span class="log-tag">시스템</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#5DCAA5">
+    <div class="log-card" onclick="goTo('log0329')" style="--lc:#5DCAA5">
       <div class="log-date">2026-03-29</div>
       <div class="log-title">산나비식 기동성 개편 및 자동 블링크 도입</div>
       <div class="log-tags"><span class="log-tag">기동성</span><span class="log-tag">자동블링크</span><span class="log-tag">이동</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#FAC775">
+    <div class="log-card" onclick="goTo('log0331')" style="--lc:#FAC775">
       <div class="log-date">2026-03-31</div>
       <div class="log-title">코드 리팩토링</div>
       <div class="log-tags"><span class="log-tag">리팩토링</span><span class="log-tag">구조</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#FAC775">
+    <div class="log-card" onclick="goTo('log0401a')" style="--lc:#FAC775">
       <div class="log-date">2026-04-01</div>
       <div class="log-title">코드 리팩토링 2</div>
       <div class="log-tags"><span class="log-tag">리팩토링</span><span class="log-tag">정리</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#85B7EB">
+    <div class="log-card" onclick="goTo('log0401b')" style="--lc:#85B7EB">
       <div class="log-date">2026-04-01</div>
       <div class="log-title">FSM 안정화 및 전투 입력</div>
       <div class="log-tags"><span class="log-tag">FSM</span><span class="log-tag">전투</span><span class="log-tag">입력시스템</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#f09595">
+    <div class="log-card" onclick="goTo('log0402')" style="--lc:#f09595">
       <div class="log-date">2026-04-02</div>
       <div class="log-title">Boss 설계, 엔딩 크레딧 설계</div>
       <div class="log-tags"><span class="log-tag">보스AI</span><span class="log-tag">엔딩</span><span class="log-tag">크레딧</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#f09595">
+    <div class="log-card" onclick="goTo('log0403a')" style="--lc:#f09595">
       <div class="log-date">2026-04-03</div>
       <div class="log-title">컴파일 · Safe Mode 에러 수정</div>
       <div class="log-tags"><span class="log-tag">버그수정</span><span class="log-tag">컴파일</span><span class="log-tag">SafeMode</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#AFA9EC">
+    <div class="log-card" onclick="goTo('log0403b')" style="--lc:#AFA9EC">
       <div class="log-date">2026-04-03</div>
       <div class="log-title">Ground 마스크 · 단검 풀 · 사운드 · Animator 인프라</div>
       <div class="log-tags"><span class="log-tag">인프라</span><span class="log-tag">풀링</span><span class="log-tag">사운드</span><span class="log-tag">Animator</span></div>
       <span class="log-arrow">→</span>
     </div>
 
-    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#AFA9EC">
+    <div class="log-card" onclick="goTo('log0404')" style="--lc:#AFA9EC">
       <div class="log-date">2026-04-04</div>
       <div class="log-title">Git 정리 · Unity 씬/폴더 구조 · Pixel Perfect · 단검 물리</div>
       <div class="log-tags"><span class="log-tag">Git</span><span class="log-tag">씬구조</span><span class="log-tag">PixelPerfect</span><span class="log-tag">물리</span></div>
@@ -2366,6 +2444,538 @@
     각 일지를 클릭하면 상세 내용으로 연결됩니다.
   </div>
 
+</div>
+
+<div id="log0328" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#1D9E75"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#1D9E75;letter-spacing:0.2em">DEVLOG · 2026-03-28 · 토</span>
+  </div>
+  <h1>Dagger Blink System 기틀 마련 및 벽 타기 구현</h1>
+  <div class="hero-meta"><span class="hero-kw">블링크</span><span class="hero-kw">벽타기</span><span class="hero-kw">투사체</span><span class="hero-kw">FSM</span></div>
+</div><div class="main"><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1부</span>
+    <span class="sec-title">Dagger Blink System</span>
+    <span class="sec-badge badge-spike">The Spike</span>
+  </div>
+  <div class="card" style="--accent:#1D9E75"><div class="card-title">핵심 구현</div><div class="card-body"><p><strong>Dagger &amp; Blink</strong> — 투사체 기반 위치 이동 시스템 기틀 마련.</p><p><strong>공중 블링크 1회 제한</strong> — 착지/벽 점착 시 리셋. 무한 체공 방어.</p></div></div><div class="card" style="--accent:#1D9E75"><div class="card-title">Juice — 타격감</div><div class="card-body"><p><strong>Hit-Stop</strong> — 블링크 직후 시간 왜곡, 공간 절단 타격감.</p><p><strong>Ghost Fade</strong> — 검붉은 <code>#800000</code> 잔상, 누아르 톤 비주얼 피드백.</p><p><strong>I-frame</strong> — 이동 경로 및 도착 직후 짧은 무적 프레임.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">방어 설계</span>
+    <span class="sec-badge badge-fix">Anti-Bug</span>
+  </div>
+  <div class="bug"><div class="bug-id">Collision Filter</div><div class="bug-desc">단검이 플레이어 본인에게 부딪혀 블링크 카운트가 씹히던 현상 해결 — Layer Collision Matrix 최적화.</div></div><div class="bug"><div class="bug-id">Wall Safe Offset</div><div class="bug-desc">텔레포트 시 벽 내부에 끼이는 현상 — 콜라이더 두께 기반 오프셋 계산으로 해결.</div></div><div class="bug"><div class="bug-id">Anti-Tunneling</div><div class="bug-desc">고속 투사체 벽 관통 현상 — Continuous 충돌 감지로 원천 차단.</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2부</span>
+    <span class="sec-title">기동성 혁신 — Wall Climb & Jump</span>
+    <span class="sec-badge badge-spike">The Spike</span>
+  </div>
+  <div class="card" style="--accent:#85B7EB"><div class="card-title">6-Ray Wall Probe</div><div class="card-body"><p>발·허리·머리 높이에서 좌우 6개 레이로 연속된 벽을 정밀 감지. 반쪽 벽 매달리기 시각 버그 방어.</p></div></div><div class="card" style="--accent:#85B7EB"><div class="card-title">Vertical Mobility</div><div class="card-body"><p>벽 부착 상태에서 W/S 키 자유로운 상하 이동 구현 <code>gravityScale = 0</code>.</p></div></div><div class="card" style="--accent:#85B7EB"><div class="card-title">Wall Jump & Input Lock</div><div class="card-body"><p>벽 점프 시 반대 방향 힘 + 0.15초 입력 잠금. 조작의 쫀득함과 수직 상승 버그 동시 방어.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">시스템 통합</span>
+    <span class="sec-badge badge-arch">Integration</span>
+  </div>
+  <div class="card" style="--accent:#AFA9EC"><div class="card-title">Resource Reset</div><div class="card-body"><p>벽에 붙는 순간 공중 블링크 횟수 즉시 초기화. 벽-블링크-벽 무한 기동 발판 마련.</p></div></div><div class="card" style="--accent:#AFA9EC"><div class="card-title">State-Based Architecture</div><div class="card-body"><p><strong>Grounded / Air / WallClimb</strong> 상태 명확 분리. 복합 이동 상황에서도 물리 로직 충돌 없음.</p></div></div><div class="card" style="--accent:#AFA9EC"><div class="card-title">Layer Matrix</div><div class="card-body"><p>Player, Dagger, Wall, Ground 간 상호작용 우선순위 확립.</p></div></div>
+</div></div>
+  </div>
+</div>
+
+<div id="log0329" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#1D9E75"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#1D9E75;letter-spacing:0.2em">DEVLOG · 2026-03-29 · 일</span>
+  </div>
+  <h1>산나비식 기동성 개편 및 자동 블링크 도입</h1>
+  <div class="hero-meta"><span class="hero-kw">자동블링크</span><span class="hero-kw">Air-Blink</span><span class="hero-kw">LineOfSight</span><span class="hero-kw">물리버그</span></div>
+</div><div class="main"><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">핵심 구현</span>
+    <span class="sec-badge badge-spike">The Spike</span>
+  </div>
+  <div class="card" style="--accent:#1D9E75"><div class="card-title">무한 공중 투척 Air-Blink</div><div class="card-body"><p>공중 1회 제한 해제 → <code>Time.time</code> 기반 0.5초 쿨타임. 사슬팔 스윙 같은 연속 기동 확보.</p></div></div><div class="card" style="--accent:#f09595"><div class="card-title">Anti-Helicopter</div><div class="card-body"><p>공중 무한 투척 시 제자리 체공 방지. 투척 순간 <code>velocity.y</code> 강제 하강 → 묵직한 조작감.</p></div></div><div class="card" style="--accent:#1D9E75"><div class="card-title">자동 블링크 Auto-Retract</div><div class="card-body"><p>단검이 Enemy 레이어 충돌 시 Shift 없이 <code>TryBlinkToDagger</code> 자동 호출. 편의성·속도감 극대화.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">3대 핵심 버그 수정</span>
+    <span class="sec-badge badge-fix">Bug Fix</span>
+  </div>
+  <div class="bug"><div class="bug-id">Grounded Check</div><div class="bug-desc">지상 점프 불능 — 수치 조정으로 조작감 정상화.</div></div><div class="bug"><div class="bug-id">Dagger Friction</div><div class="bug-desc">단검 지면 미끄러짐 — Rigidbody 제어로 해결.</div></div><div class="bug"><div class="bug-id">Wall-Blink Block</div><div class="bug-desc">벽 부착 중 블링크 발동 차단 로직 수정 완료.</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">조준선 Line of Sight 시스템</span>
+    <span class="sec-badge badge-arch">Architecture</span>
+  </div>
+  <div class="card" style="--accent:#85B7EB"><div class="card-title">LineRenderer 조준선</div><div class="card-body"><p><code>LineRenderer</code>로 적↔플레이어 실시간 거리·방향 레이저 시각화.</p></div></div><div class="card" style="--accent:#555"><div class="card-title">UI 실험</div><div class="card-body"><p>텍스트 인디케이터 <em>'나 여깄어!'</em> 구현 후 시각적 노이즈 판정으로 비활성화.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <span class="sec-title">물리 버그 & 트러블슈팅</span>
+    <span class="sec-badge badge-perf">Physics Fix</span>
+  </div>
+  <div class="bug"><div class="bug-id">포물선 비행</div><div class="bug-desc"><code>RigidbodyType2D.Dynamic</code> 기본 중력으로 단검이 포물선 낙하. → Launch 시 <code>rb.gravityScale = 0f</code> 강제 주입, 직진 궤적 완성.</div></div><div class="card" style="--accent:#AFA9EC"><div class="card-title">Material 숙달</div><div class="card-body"><p>Project 창(창고) vs Hierarchy(무대) 구조 이해. <code>Unlit/Transparent</code>·<code>Sprites/Default</code> 쉐이더 특성 및 텍스처 타일링 확립.</p></div></div>
+</div><div class="callout warn">
+  <strong>미해결 — 점선 비주얼:</strong> 빨간색+투명 스프라이트로 실선 → 점선 교체 예정.<br>
+  <strong>유도 단검(Magnetic Aim):</strong> 플레이어 100% 수동 컨트롤 재미 위해 기획적 제외 결정.
+</div></div>
+  </div>
+</div>
+
+<div id="log0331" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#85B7EB"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#85B7EB;letter-spacing:0.2em">DEVLOG · 2026-03-31 · 화</span>
+  </div>
+  <h1>시스템 아키텍처 리팩토링 및 2D 물리 표준화</h1>
+  <div class="hero-meta"><span class="hero-kw">리팩토링</span><span class="hero-kw">2D표준화</span><span class="hero-kw">GC최적화</span><span class="hero-kw">Layers.cs</span></div>
+</div><div class="main"><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">구조 모순 해결</span>
+    <span class="sec-badge badge-arch">Critical</span>
+  </div>
+  <div class="card" style="--accent:#85B7EB"><div class="card-title">IProjectile2D 도입</div><div class="card-body"><p>기존 3D 기반(<code>Vector3</code>, <code>RaycastHit</code>) 인터페이스 폐기 → <code>Vector2</code> 및 <code>Collision2D</code> 사용 2D 전용 계약 재정의.</p></div></div><div class="card" style="--accent:#85B7EB"><div class="card-title">ProjectileBase2D 재작성</div><div class="card-body"><p>3D <code>Rigidbody</code> 의존성 완전 제거 → <code>Rigidbody2D</code> 기반 표준화. <code>IProjectile2D</code> 구현, <code>EffectManager</code>와 정상 연결.</p></div></div><div class="card" style="--accent:#85B7EB"><div class="card-title">DaggerProjectile2D 연동</div><div class="card-body"><p>베이스 클래스와 인터페이스를 실제 동작부와 연결 — 아키텍처 정합성 확보.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">성능 최적화</span>
+    <span class="sec-badge badge-perf">Performance</span>
+  </div>
+  <div class="card" style="--accent:#FAC775"><div class="card-title">FindFirstObjectByType 탐색 남용 해결</div><div class="card-body"><p><code>DaggerProjectile2D.Awake</code>에서 <code>PlayerBlinkController2D</code> 1회 캐싱, <code>Launch</code> 시점 null 재확인 이중 방어막. 매 충돌 씬 전체 탐색 오버헤드 제거.</p></div></div><div class="card" style="--accent:#FAC775"><div class="card-title">Layers.cs 정수 상수화</div><div class="card-body"><p>문자열 비교 방식 지양 → <code>static readonly int</code> 상수 시스템. 오타로 인한 Silent Bug 원천 차단. 비트 연산 기반 레이어 마스크로 교체.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">메모리 & API</span>
+    <span class="sec-badge badge-fix">Memory</span>
+  </div>
+  <div class="card" style="--accent:#f09595"><div class="card-title">파티클 메모리 누수 방지</div><div class="card-body"><p><code>EffectManager.SpawnEffect</code> 호출 시 <code>ps.main.duration</code> + 유예 시간 즉시 파괴 로직. 장시간 파티클 오브젝트 누적 크래시 리스크 해결.</p></div></div><div class="card" style="--accent:#1D9E75"><div class="card-title">ImmediateBlink() 공개 API</div><div class="card-body"><p>단검 적중 시 외부에서 즉시 호출 가능. 공중 블링크 소모 규칙·코요테 타임 준수하며 속도감 있는 기동 가능.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <span class="sec-title">향후 과제</span>
+    <span class="sec-badge badge-todo">To-do</span>
+  </div>
+  <ul class="checklist">
+    <li>점선 에셋 교체 — Aseprite 빨간 점선(<code>----</code>) 스프라이트 제작</li>
+    <li>리팩토링 후 레이어 충돌 예외 상황 및 메모리 점유율 엣지 케이스 검증</li>
+  </ul>
+</div></div>
+  </div>
+</div>
+
+<div id="log0401a" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#FAC775"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#FAC775;letter-spacing:0.2em">DEVLOG · 2026-04-01 · 수</span>
+  </div>
+  <h1>코드 리팩토링 2 — .cursorrules 2.0 전역 감사</h1>
+  <div class="hero-meta"><span class="hero-kw">GC제거</span><span class="hero-kw">WeaponData</span><span class="hero-kw">Layers.cs</span><span class="hero-kw">메모리</span></div>
+</div><div class="main"><div class="callout info">
+  <strong>목적:</strong> <code>.cursorrules 2.0</code> 도입에 따른 전역 코드 감사 및 성능 최적화.<br>
+  <strong>핵심 키워드:</strong> GC 할당 제거, 매직 넘버 에셋화, 레이어 타입 안정성 확보.
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">A</span>
+    <span class="sec-title">WeaponData & PlayerBlinkController2D</span>
+    <span class="sec-badge badge-perf">Performance</span>
+  </div>
+  <div class="card" style="--accent:#FAC775"><div class="card-title">데이터 기반 설계</div><div class="card-body"><p>하드코딩 수치(쿨타임·히트스톱·오프셋 등) → <code>WeaponData.cs</code>로 이관. 밸런싱 효율 증대.</p></div></div><div class="card" style="--accent:#FAC775"><div class="card-title">레이어 참조 시스템</div><div class="card-body"><p><code>string</code> 기반 레이어 비교 완전 제거 → <code>Layers.cs</code> 정적 상수. 오타 물리 버그 원천 차단.</p></div></div><div class="card" style="--accent:#FAC775"><div class="card-title">수명 관리 최적화</div><div class="card-body"><p>블링크 이펙트 <code>Instantiate</code> 시 <code>Destroy(go, duration)</code> 명시 → 메모리 누수 방지.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">B</span>
+    <span class="sec-title">EnemyLineOfSight2D — GC 폭탄 해체</span>
+    <span class="sec-badge badge-fix">GC Fix</span>
+  </div>
+  <div class="card" style="--accent:#f09595"><div class="card-title">머티리얼 캐싱</div><div class="card-body"><p><code>Update</code> 내 <code>.material</code> 접근 시 매 프레임 인스턴스 생성 유니티 고질 문제 해결.<br><code>Awake</code>에서 1회 캐싱, <code>OnDestroy</code>에서 명시적 <code>Destroy(_cachedMaterial)</code> 호출.</p></div></div><div class="card" style="--accent:#f09595"><div class="card-title">방어적 참조 로직</div><div class="card-body"><p>인스펙터 할당 우선 → 누락 시에만 <code>FindFirstObjectByType</code> 호출. 런타임 부하 최소화 + 경고 로그 추가.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">C</span>
+    <span class="sec-title">방어적 설계 체크리스트</span>
+    <span class="sec-badge badge-arch">Checklist</span>
+  </div>
+  <ul class="checklist">
+    <li class="done">Early Return — 모든 메서드 진입점 null 및 경계값 검사</li>
+    <li class="done">No Happy Path — 컴포넌트 누락, 플레이어 미탐색 등 <code>LogError/Warning</code> 처리</li>
+    <li class="done">Memory Management — 핫 루프 내 <code>new</code> 할당 및 문자열 생성 지양</li>
+  </ul>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">D</span>
+    <span class="sec-title">향후 과제</span>
+    <span class="sec-badge badge-todo">To-do</span>
+  </div>
+  <ul class="checklist">
+    <li>PlayerStateMachine FSM 구축 — Update 내 전투 로직 상태 클래스 분리</li>
+    <li>히트스톱 & 카메라 쉐이크 — WeaponData 기반 타격감 디테일</li>
+    <li>오브젝트 풀링 — 투사체·이펙트 Pool 시스템 도입 검토</li>
+  </ul>
+</div></div>
+  </div>
+</div>
+
+<div id="log0401b" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#1D9E75"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#1D9E75;letter-spacing:0.2em">DEVLOG · 2026-04-01 · 수</span>
+  </div>
+  <h1>FSM 안정화 및 전투 입력 무결성 확보</h1>
+  <div class="hero-meta"><span class="hero-kw">FSM</span><span class="hero-kw">InputGuard</span><span class="hero-kw">Blink·Grab·Slam</span><span class="hero-kw">BossFramework</span></div>
+</div><div class="main"><div class="callout info">
+  <strong>목적:</strong> Blink-Grab-Slam 루프 구현 중 발견된 런타임 예외 및 조작 간섭 해결.<br>
+  이번 업데이트는 단순 기능 추가가 아닌 <strong>시스템의 척추(Core)를 바로잡는 리팩토링</strong>에 집중.
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">Core Gameplay Loop</span>
+    <span class="sec-badge badge-spike">The Spike</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>메카닉</th><th>설명</th></tr>
+    <tr><td><code>Blink</code> 순간이동</td><td>투사체 패링 시 즉시 충전되는 초고속 이동기</td></tr>
+    <tr><td><code>Grab</code> 제압</td><td>적의 약점을 낚아채어 물리 소유권 강제 획득</td></tr>
+    <tr><td><code>Slam</code> 강타</td><td>적을 지면에 메쳐 광역 데미지와 아머 파괴 피니셔</td></tr>
+  </table></div><div class="card" style="--accent:#1D9E75"><div class="card-title">Boss Framework Scalable</div><div class="card-body"><p><code>IGrabbable</code> Interface — 모든 적·보스 약점을 하나의 인터페이스로 통합, 저결합도 달성.<br><code>ArmorGauge</code> System — 일반 공격 차단, Blink/Slam으로만 파괴 가능한 가드 + 자동 재생.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">FSM 논리 결함 수정</span>
+    <span class="sec-badge badge-fix">Bug Report</span>
+  </div>
+  <div class="bug"><div class="bug-id">BUG-01 · GrabState 소프트 락</div><div class="bug-desc">타겟 유실 <code>_target == null</code> 시 무한 대기 → 즉시 <code>IdleState</code> 복귀 탈출로 확보.</div></div><div class="bug"><div class="bug-id">BUG-02 · SlamState 초기화</div><div class="bug-desc"><code>_hasImpacted</code> 플래그 초기화를 <code>Enter()</code> 최상단으로 이동. 조기 리턴 시 물리 오발사 방지. <code>_rb</code>·<code>_target</code> null 가드 강화.</div></div><div class="bug"><div class="bug-id">BUG-03 · 입력 가드 Input Guard</div><div class="bug-desc">Grab·Slam 상태 중 <code>PlayerBlinkController2D</code> 모든 입력 차단. 블링크 중복 발사 Self-Transition 버그 차단.</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">보스 로드맵</span>
+    <span class="sec-badge badge-arch">Boss Roadmap</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>단계</th><th>보스명</th><th>핵심 기믹</th><th>서사</th></tr>
+    <tr><td>01</td><td><strong>하운드</strong></td><td>블링크 입문 / 유압 피스톤 그랩</td><td>분노</td></tr>
+    <tr><td>02</td><td><strong>서류</strong></td><td>패리 + 블링크 (탄막 대응)</td><td>무력감</td></tr>
+    <tr><td>03</td><td><strong>형</strong></td><td>단검 박고 강제 블링크 탈출</td><td>혼란</td></tr>
+    <tr><td>04</td><td><strong>그림자</strong></td><td>비전투 퍼즐 / 잔상 스위칭</td><td>수용</td></tr>
+    <tr><td>05</td><td><strong>설계자</strong></td><td>군단 소환 / 역패리 대응</td><td>선택</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <span class="sec-title">방어 체크리스트</span>
+    <span class="sec-badge badge-arch">Checklist</span>
+  </div>
+  <ul class="checklist">
+    <li class="done">Early Return — 상태 진입·물리 연산 전 null 가드</li>
+    <li class="done">Input Exclusivity — 특정 상태 입력 간섭 차단</li>
+    <li class="done">State Integrity — 비정상 상태 시 Idle 복귀</li>
+  </ul><div class="callout warn" style="margin-top:12px">
+    <strong>⚠ Ground Mask 동기화:</strong> <code>PlayerMovement2D</code>와 <code>PlayerStateMachine</code>의 레이어 마스크 이중화. 인스펙터에서 동일한 Ground 레이어 확인 필수. <em>(차후 전역 상수 통합 예정)</em>
+  </div>
+</div></div>
+  </div>
+</div>
+
+<div id="log0402" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#f09595"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#f09595;letter-spacing:0.2em">DEVLOG · 2026-04-02 · 목</span>
+  </div>
+  <h1>Boss 2~5 전체 구현 및 엔딩·시스템 인프라 완성</h1>
+  <div class="hero-meta"><span class="hero-kw">Boss AI FSM</span><span class="hero-kw">엔딩시스템</span><span class="hero-kw">대화시스템</span><span class="hero-kw">StoryDatabase</span></div>
+</div><div class="main"><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">Boss — 하운드 Hound</span>
+    <span class="sec-badge badge-fix">Boss</span>
+  </div>
+  <div class="tbl-wrap"><table><tr><th>클래스</th><th>설명</th></tr><tr><td><code>EnemyBossHound</code></td><td style="color:var(--t2)">유압 피스톤 그랩 + 블링크 입문</td></tr><tr><td><code>HoundShockwaveState</code></td><td style="color:var(--t2)">슬램 충격파</td></tr></table></div><div class="bug"><div class="bug-id">H1</div><div class="bug-desc">아머 게이지 자동재생 — 페이즈 전환 타이밍 경합 방어</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">Boss — 서류 Paper</span>
+    <span class="sec-badge badge-fix">Boss</span>
+  </div>
+  <div class="tbl-wrap"><table><tr><th>클래스</th><th>설명</th></tr><tr><td><code>EnemyBossPaper</code></td><td style="color:var(--t2)">드론 방패 + 도장 패턴 허브</td></tr><tr><td><code>PaperDrone</code></td><td style="color:var(--t2)">패리 유도 드론</td></tr><tr><td><code>PaperDroneShieldState</code></td><td style="color:var(--t2)">드론 전멸 시 PaperOverclockState 전이</td></tr><tr><td><code>PaperStampState</code></td><td style="color:var(--t2)">지면 Raycast 방어 포함</td></tr><tr><td><code>PaperOverclockState (P2)</code></td><td style="color:var(--t2)">4발 바라지 + 각도 퍼짐</td></tr></table></div><div class="bug"><div class="bug-id">H1</div><div class="bug-desc">_hasParried 플래그로 다중 패리 오버플로우 차단</div></div><div class="bug"><div class="bug-id">H2</div><div class="bug-desc">BossParryableProjectile2D 편향탄 팀 ID 오류 방어</div></div><div class="bug"><div class="bug-id">H3</div><div class="bug-desc">PaperStampState 지면 미감지 시 스탬프 취소</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">Boss — 형 Brother</span>
+    <span class="sec-badge badge-fix">Boss</span>
+  </div>
+  <div class="tbl-wrap"><table><tr><th>클래스</th><th>설명</th></tr><tr><td><code>EnemyBossBrother</code></td><td style="color:var(--t2)">LastPlayerBlinkPos 추적</td></tr><tr><td><code>BrotherBindProjectile2D</code></td><td style="color:var(--t2)">구속 와이어</td></tr><tr><td><code>BrotherCounterState (P2)</code></td><td style="color:var(--t2)">블링크 위치 텔레포트 후 즉각 슬래시</td></tr><tr><td><code>PlayerBoundState</code></td><td style="color:var(--t2)">전면 재작성</td></tr></table></div><div class="bug"><div class="bug-id">H1</div><div class="bug-desc">단검 분실 시 DAGGER_LOST_PENALTY 타이머 가속 (Soft Lock 방어)</div></div><div class="bug"><div class="bug-id">H2</div><div class="bug-desc">구속 중 블링크 시도 시 TriggerRejectFlash 빨간 플래시</div></div><div class="bug"><div class="bug-id">H3</div><div class="bug-desc">타임아웃 데미지 → IsDead 체크 → 사망·탈출 충돌 방어</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">Boss — 그림자 Shadow</span>
+    <span class="sec-badge badge-fix">Boss</span>
+  </div>
+  <div class="tbl-wrap"><table><tr><th>클래스</th><th>설명</th></tr><tr><td><code>EnemyBossShadow</code></td><td style="color:var(--t2)">LRU 마커 관리 + Bind/Unbind 오버라이드</td></tr><tr><td><code>BlinkGhostMarker</code></td><td style="color:var(--t2)">Pause/Resume + 즉각 겹침 감지</td></tr><tr><td><code>GhostSwitch</code></td><td style="color:var(--t2)">HashSet 추적 + IsFake (Phase 3 가짜 스위치)</td></tr><tr><td><code>ShadowGhostPhaseState</code></td><td style="color:var(--t2)">퍼즐 타임아웃</td></tr><tr><td><code>ShadowHauntState</code></td><td style="color:var(--t2)">절대 타이머 + FadeAndWarpRoutine</td></tr></table></div><div class="bug"><div class="bug-id">H1</div><div class="bug-desc">마커 벽 클리핑 → Physics2D.OverlapPoint 스폰 차단</div></div><div class="bug"><div class="bug-id">H2</div><div class="bug-desc">HauntState 무한 루프 → 절대 타이머 + 강제 워프</div></div><div class="bug"><div class="bug-id">H3</div><div class="bug-desc">Bind 중 마커 혼란 → PauseAllMarkers / ResumeAllMarkers</div></div><div class="bug"><div class="bug-id">H4</div><div class="bug-desc">페이드 중 플레이어 사망 → playerHealth.IsDead yield 체크</div></div><div class="bug"><div class="bug-id">H5</div><div class="bug-desc">가짜 스위치 마커 과부하 → LRU + Phase별 수명 단축</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">Boss — 설계자 Designer</span>
+    <span class="sec-badge badge-fix">Boss</span>
+  </div>
+  <div class="tbl-wrap"><table><tr><th>클래스</th><th>설명</th></tr><tr><td><code>EnemyBossDesigner</code></td><td style="color:var(--t2)">Wave 13 + Phase 12 허브</td></tr><tr><td><code>DesignerUmbrella</code></td><td style="color:var(--t2)">단검 반사 Anti-Blink — 핵심 메카닉</td></tr><tr><td><code>ArmJoint</code></td><td style="color:var(--t2)">관절 파괴 (원본 disabled + 분리 프리팹)</td></tr><tr><td><code>EliteAgent / NullCyborg / EliteZeroX01</code></td><td style="color:var(--t2)">Wave 적 3종</td></tr><tr><td><code>DesignerWaveState</code></td><td style="color:var(--t2)">Wave 1→2→3 시퀀서</td></tr><tr><td><code>DesignerStruggleState</code></td><td style="color:var(--t2)">동시 대치 + ForcedReleaseTimer</td></tr></table></div><div class="bug"><div class="bug-id">H1</div><div class="bug-desc">관절 분리 물리 오류 → enabled=false + 분리 프리팹 독립 스폰</div></div><div class="bug"><div class="bug-id">H2</div><div class="bug-desc">동시 잡기 무한 루프 → ForcedReleaseTimer 5초 강제 해제</div></div><div class="bug"><div class="bug-id">H3</div><div class="bug-desc">USB 습득 누락 → 카메라 포커스 + 자동 프롬프트</div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">엔딩 시스템</span>
+    <span class="sec-badge badge-arch">Ending</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>Ending A</th><th>Ending B</th></tr>
+    <tr><td>선택</td><td>연서가 USB를 막는다</td><td>연서가 USB를 직접 누른다</td></tr>
+    <tr><td>결말</td><td>빨간 우산 아래 둘이 서있음 — <em>"현아."</em></td><td>우산이 바닥에, 혼자 빗속</td></tr>
+    <tr><td>톤</td><td style="color:#1D9E75">희망</td><td style="color:#f09595">비극</td></tr>
+  </table></div><div class="card" style="--accent:#e74c3c"><div class="card-title">구현 클래스</div><div class="card-body"><p><code>CutscenePlayer</code> — 라인바이라인 나레이션 엔진.<br><code>EndingChoiceUI</code> — 분기 선택지 UI.<br><code>EndingUSBItem</code> — 공통 프리 컷씬 + Ending A/B 전체 대사 내장.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">대화 우선순위 시스템</span>
+    <span class="sec-badge badge-arch">Dialogue</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>레벨</th><th>종류</th><th>동작</th></tr>
+    <tr><td>1</td><td>Ambient</td><td>낮은 우선순위, 큐 드롭 허용</td></tr>
+    <tr><td>2</td><td>Combat</td><td>전투 상황 자막</td></tr>
+    <tr><td>3</td><td>Story</td><td>강제 재생, 드롭 불가</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num"></span>
+    <span class="sec-title">신규 생성 파일 (~25개)</span>
+    <span class="sec-badge badge-arch">Files</span>
+  </div>
+  <div class="tree">Boss/Paper/        PaperOverclockState.cs
+Boss/Brother/      BrotherCounterState.cs  (재작성)
+                   PlayerBoundState.cs     (전면 재작성)
+Boss/Shadow/       Phase 2 + Rule 1 전체 수정
+Boss/Designer/     EnemyBossDesigner.cs
+                   DesignerUmbrella.cs  ArmJoint.cs
+                   Enemies/ × 3   States/ × 4
+Dialogue/          CombatDialogueUI.cs  BossCombatDialogue.cs
+                   TriggerCutscene.cs
+Ending/            CutscenePlayer.cs  EndingChoiceUI.cs  EndingUSBItem.cs
+System/            PlaythroughTracker.cs  SoundManager.cs  CheckpointManager.cs
+UI/                StruggleUI.cs</div>
+</div></div>
+  </div>
+</div>
+
+<div id="log0403a" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#f09595"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#f09595;letter-spacing:0.2em">DEVLOG · 2026-04-03 · 목</span>
+  </div>
+  <h1>컴파일 · Safe Mode 에러 정리</h1>
+  <div class="hero-meta"><span class="hero-kw">SafeMode</span><span class="hero-kw">CS에러</span><span class="hero-kw">패키지</span><span class="hero-kw">API정합성</span></div>
+</div><div class="main"><div class="callout warn">
+  <strong>목적:</strong> Unity Safe Mode 및 CSxxxx 컴파일 실패 해소.<br>
+  패키지 → 스크립트 시그니처 → 타입 일치 순으로 정리.
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">패키지 manifest</span>
+    <span class="sec-badge badge-fix">Packages</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>패키지</th><th>버전</th><th>효과</th></tr>
+    <tr><td><code>com.unity.ugui</code></td><td>2.0.0</td><td>UI 누락으로 발생하던 CS0246 등 완화</td></tr>
+    <tr><td><code>com.unity.textmeshpro</code></td><td>3.0.9</td><td>TMP 참조 복구</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">스크립트별 수정</span>
+    <span class="sec-badge badge-fix">Script Fixes</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>파일</th><th>증상</th><th>조치</th></tr>
+    <tr><td><code>ArmJoint.cs</code></td><td>CS0108 — gameObject 부모 충돌</td><td>new 키워드 정리</td></tr>
+    <tr><td><code>DaggerProjectile2D.cs</code></td><td>존재하지 않는 필드 참조</td><td>weaponData.speed → <code>projectileSpeed</code></td></tr>
+    <tr><td><code>StoryDatabase.cs</code></td><td>CS0103 Debug 미인식</td><td><code>using UnityEngine;</code> 추가</td></tr>
+    <tr><td><code>BossStateMachine</code></td><td>void 대입 CS0815</td><td>반환형 <code>BossParryableProjectile2D</code>로 명시</td></tr>
+    <tr><td>DesignerWaveState 외 3종</td><td>?? 좌우 타입 불일치</td><td><code>(… as IBossState) ?? …</code> 형태로 통일</td></tr>
+    <tr><td><code>CombatDialogueUI.cs</code></td><td>CS0414 미사용 필드</td><td>DialoguePriority.Combat 분기에서 사용으로 해소</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">잔여 메모</span>
+    <span class="sec-badge badge-todo">Notes</span>
+  </div>
+  <div class="callout info">
+    <strong>Physics2D.*NonAlloc Obsolete 경고</strong> — Unity 6 API 마이그레이션 시 별도 대응 가능.<br>
+    <strong>프리팹/씬 유실</strong> — 코드 밖 작업, 에디터에서 재할당 필요.
+  </div>
+  <div class="callout info" style="margin-top:8px">
+    동일 일자 후속 작업: <strong>2026-04-03 인프라 (Ground / 풀 / 사운드 / Animator)</strong> 참고.
+  </div>
+</div></div>
+  </div>
+</div>
+
+<div id="log0403b" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#AFA9EC"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AFA9EC;letter-spacing:0.2em">DEVLOG · 2026-04-03 · 목</span>
+  </div>
+  <h1>인프라 — Ground · 풀 · 사운드 · Animator</h1>
+  <div class="hero-meta"><span class="hero-kw">Layers.cs</span><span class="hero-kw">ObjectPool</span><span class="hero-kw">SoundManager</span><span class="hero-kw">Animator</span></div>
+</div><div class="main"><div class="callout info">
+  <strong>목적:</strong> 데모·스팀 출시 전 코드만으로 바로 이득 나는 작업 묶음.<br>
+  에셋 없이도 적용 가능한 방어·GC·연출 뼈대를 한 번에 적용.
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">Ground 마스크</span>
+    <span class="sec-badge badge-arch">Layers</span>
+  </div>
+  <div class="card" style="--accent:#AFA9EC"><div class="card-title">PlayerPhysicsGroundMask</div><div class="card-body"><p><code>Layers.PlayerPhysicsGroundMask</code> — Ground 레이어 단일 비트 추가.<br>적용: <code>PlayerMovement2D</code>, <code>PlayerStateMachine → SlamState</code>, <code>PlayerBlinkController2D</code>.<br>인스펙터 <code>groundMask</code>가 비어 있으면 폴백 사용 → 이중 설정 불일치 완화.</p></div></div><div class="callout warn">Ground 외 전용 플랫폼 레이어만 쓰는 씬은 인스펙터에 마스크를 <strong>직접</strong> 채워야 한다.</div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">단검 오브젝트 풀 (선택)</span>
+    <span class="sec-badge badge-perf">Object Pool</span>
+  </div>
+  <div class="card" style="--accent:#FAC775"><div class="card-title">SimpleGameObjectPool 연동</div><div class="card-body"><p>풀 프리팹 == <code>WeaponData.daggerProjectilePrefab</code> 일 때만 <code>Get / Release</code>.<br>불일치 시 <code>LogWarning</code> 후 <code>Instantiate</code> 폴백.<br><code>DaggerProjectile2D.SetReleasePool</code>, <code>ReleaseToPoolOrDestroy()</code> — 최대 사거리·블링크 회수 시 반환.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">사운드 훅 SoundManager</span>
+    <span class="sec-badge badge-arch">Sound Hooks</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>API</th><th>연결 지점</th></tr>
+    <tr><td><code>PlayBlink()</code></td><td>TryBlinkToDagger 성공 시</td></tr>
+    <tr><td><code>PlayGrab()</code></td><td>GrabState.Enter</td></tr>
+    <tr><td><code>PlaySlam()</code></td><td>SlamState.ExecuteImpact</td></tr>
+    <tr><td><code>PlayParry()</code></td><td>PlayerParryController2D.OnParrySuccess</td></tr>
+    <tr><td><code>PlayDeath()</code></td><td>PlayerHealth.Die (_sfxDeath 슬롯 추가)</td></tr>
+  </table></div>
+  <div class="callout info">클립 미할당 시 기존 PlaySFX 가드로 <strong>무음 스킵</strong>.</div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <span class="sec-title">Animator 플레이스홀더</span>
+    <span class="sec-badge badge-arch">Animator</span>
+  </div>
+  <div class="card" style="--accent:#85B7EB"><div class="card-title">플레이어 PlayerAnimHashes</div><div class="card-body"><p><code>Player_Idle / Player_Run / Player_BlinkCombat / Player_Grab / Player_Slam / Player_Bound</code><br>각 State <code>Enter()</code>에서 대응 트리거 발행.</p></div></div><div class="card" style="--accent:#85B7EB"><div class="card-title">보스 BossAnimHashes</div><div class="card-body"><p>Int <code>BossPhase</code>, Trigger <code>BossGrabbed / BossVulnerable</code><br>페이즈 전환 시 <code>SetInteger</code>, GrabbedState·VulnerableState 진입 시 <code>SetTrigger</code>.<br>Animator 미할당 시 동작 변화 없음.</p></div></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">5</span>
+    <span class="sec-title">씬 작업 체크리스트</span>
+    <span class="sec-badge badge-todo">Checklist</span>
+  </div>
+  <ul class="checklist">
+    <li>단검 풀 사용 시: 풀 프리팹 = WeaponData 단검 프리팹 일치 확인</li>
+    <li>플레이어 / 보스 Animator 슬롯 연결 시 컨트롤러 파라미터 이름을 해시와 일치</li>
+    <li>SoundManager에 SFX 클립 순차 연결</li>
+  </ul>
+</div></div>
+  </div>
+</div>
+
+<div id="log0404" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+    <div class="hero">
+  <div class="hero-eyebrow"><span class="hero-dot" style="background:#85B7EB"></span>
+    <span style="font-family:var(--mono);font-size:10px;color:#85B7EB;letter-spacing:0.2em">DEVLOG · 2026-04-04 · 금</span>
+  </div>
+  <h1>Git 정리 · Unity 씬/폴더 구조 · Pixel Perfect · 단검 물리</h1>
+  <div class="hero-meta"><span class="hero-kw">Git rebase</span><span class="hero-kw">씬구조</span><span class="hero-kw">PixelPerfect</span><span class="hero-kw">단검물리</span></div>
+</div><div class="main"><div class="callout info">
+  <strong>목적:</strong> Git/README 정리, 그레이박스용 씬·에셋 구조 정돈, 단검 지면 미끄럼 수정.<br>
+  유니티 에디터에서 플레이 가능한 테스트 씬 구성 1~3단계 진행.
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">1</span>
+    <span class="sec-title">Git — rebase & README</span>
+    <span class="sec-badge badge-arch">Git</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>상황</td><td>feature/Unity rebase 중 README.md <strong>both modified</strong></td></tr>
+    <tr><td>조치</td><td>2026-04-03 devlog 링크 세 줄 병합 (Unity_Error_Fix 등)</td></tr>
+    <tr><td>결과</td><td>rebase 완료</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">2</span>
+    <span class="sec-title">코드 수정</span>
+    <span class="sec-badge badge-fix">Code</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>파일</th><th>내용</th></tr>
+    <tr><td><code>PlayerBlinkController2D.cs</code></td><td>OnBlinkExecuted 중복 summary 제거</td></tr>
+    <tr><td><code>DaggerProjectile2D.cs</code></td><td>지면 튕김·미끄럼 완화: Continuous 검출, 무탄성 PhysicsMaterial2D, PinToContact, 임베드 시 각속도·회전 고정</td></tr>
+    <tr><td><code>WeaponData.cs</code></td><td>daggerPhysicsMaterial, daggerSurfaceEmbedInset 추가</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">3</span>
+    <span class="sec-title">폴더·에셋 구조</span>
+    <span class="sec-badge badge-arch">Assets</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>경로</th><th>내용</th></tr>
+    <tr><td><code>Assets/Scenes/</code></td><td>TestScene.unity 이동, Test_Arena.unity 추가 — 그레이박스·전투 테스트용</td></tr>
+    <tr><td><code>Assets/Art/Sprites/</code></td><td>spr_Tile_Base.png 추가</td></tr>
+    <tr><td><code>Assets/Data/</code></td><td>NewWeaponData.asset 이동</td></tr>
+    <tr><td><code>Assets/Scripts/</code></td><td>Layers.cs, WeaponData.cs, MovementData.cs 등 베이스 스크립트 이동 (루트 혼잡 감소)</td></tr>
+    <tr><td><code>Assets/Sound/</code></td><td>폴더 생성 — SFX 연결 예정</td></tr>
+    <tr><td>삭제</td><td>Assets/GroundPalette.prefab, 루트 NewWeaponData.asset</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">4</span>
+    <span class="sec-title">패키지·프로젝트 설정</span>
+    <span class="sec-badge badge-perf">Settings</span>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>com.unity.2d.pixel-perfect 5.1.1</td><td>픽셀 아트 카메라 정수 스케일 등</td></tr>
+    <tr><td>Physics2DSettings</td><td>물리 2D 설정 조정</td></tr>
+    <tr><td>TagManager</td><td>레이어·태그 씬과 맞춤 정리</td></tr>
+  </table></div>
+</div><div class="sec">
+  <div class="sec-head">
+    <span class="sec-num">5</span>
+    <span class="sec-title">1~3단계 체크리스트</span>
+    <span class="sec-badge badge-todo">Checklist</span>
+  </div>
+  <ul class="checklist">
+    <li class="done">씬 + 플레이어 + 바닥 — TestScene / Test_Arena</li>
+    <li class="done">HitStop / CameraShaker / SoundManager — 씬 배치·참조 연결</li>
+    <li class="done">단검 루프 — 프리팹 + WeaponData + (선택) 풀</li>
+    <li>Animator 컨트롤러에 PlayerAnimHashes 트리거 이름 맞추기</li>
+    <li>SoundManager 클립 채우기</li>
+    <li>타일맵·본격 아트 spr_Tile_Base 기준으로 확장</li>
+  </ul>
+</div></div>
+  </div>
 </div>
 
 </div>
