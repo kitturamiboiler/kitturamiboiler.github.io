@@ -4,18 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Null — 통합 개발 허브</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-0: #0a0a0a; --bg-1: #141414; --bg-2: #1f1f1f;
     --border: #2a2a2a; --text-0: #ffffff; --text-1: #e0e0e0;
     --text-2: #888888; --primary: #1D9E75; --accent-red: #f09595;
     --accent-amber: #FAC775; --accent-blue: #85B7EB;
+    
+    /* Level Design 전용 변수 (충돌 방지용 접두어 ld-) */
+    --ld-bg: #0a0a0c; --ld-red: #c0392b; --ld-red2: #e74c3c;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-0);color:var(--text-1);padding:1.5rem;line-height:1.5}
   
   /* Navigation */
-  .nav { display: flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-1); padding: 4px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; }
+  .nav { display: flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-1); padding: 4px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; position: sticky; top: 1.5rem; z-index: 100; }
   .nav-btn { background: none; border: none; color: var(--text-2); font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 16px; border-radius: 6px; transition: all .2s; }
   .nav-btn.active { background: var(--bg-2); color: var(--text-0); box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
@@ -46,11 +50,6 @@
   .boss-sub { font-size: 10px; color: var(--text-2); margin-top: 2px; }
   .boss-status { font-size: 10px; margin-top: 8px; padding: 2px 8px; border-radius: 4px; background: var(--bg-2); }
 
-  /* Chip Row */
-  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: var(--bg-1); border: 1px solid var(--border); color: var(--text-2); }
-  .chip.done { border-color: var(--primary); color: var(--primary); }
-
   /* TODO List Styles */
   .summary-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; padding: 14px; background: var(--bg-1); border-radius: 10px; border: 1px solid var(--border); }
   .phase { margin-bottom: 2.5rem; }
@@ -62,6 +61,40 @@
   .cb.checked::after { content: '✓'; color: white; font-size: 12px; position: absolute; left: 3px; top: -1px; }
   .item-title.checked { text-decoration: line-through; color: var(--text-2); }
   .item-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+  /* =========================================
+     LEVEL DESIGN TAB SPECIFIC STYLES
+     ========================================= */
+  #level-design { color: #d4cfc8; font-family: 'Noto Serif KR', serif; line-height: 1.9; max-width: 900px; margin: 0 auto; padding-bottom: 100px; }
+  .ld-wrap { position: relative; z-index: 1; }
+  .ld-header { padding: 40px 0 60px; border-bottom: 1px solid var(--border); margin-bottom: 60px; position: relative; }
+  .ld-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 120px; height: 1px; background: var(--ld-red); }
+  .ld-h-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.25em; color: var(--ld-red2); text-transform: uppercase; margin-bottom: 20px; }
+  .ld-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 10vw, 80px); letter-spacing: 0.04em; color: #fff; line-height: 0.95; margin-bottom: 16px; }
+  .ld-header h1 span { color: var(--ld-red); }
+  
+  .ld-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 60px; }
+  .ld-mech-item { background: var(--bg-1); padding: 20px; }
+  .ld-mech-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  
+  .ld-chapter { margin-bottom: 80px; }
+  .ld-ch-header { display: flex; align-items: flex-start; gap: 24px; margin-bottom: 28px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+  .ld-ch-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--ld-red); line-height: 1; opacity: 0.5; }
+  .ld-ch-title { font-size: 22px; font-weight: 600; color: #fff; }
+
+  .ld-seg { display: flex; border: 1px solid var(--border); margin-bottom: 8px; overflow: hidden; font-size: 13px; }
+  .ld-tag { width: 80px; padding: 10px; font-family: 'JetBrains Mono'; font-size: 10px; text-align: center; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ld-tag.fight { background: rgba(192,57,43,0.2); color: var(--ld-red2); }
+  .ld-tag.story { background: rgba(41,128,185,0.2); color: #5dade2; }
+  .ld-tag.move { background: rgba(39,174,96,0.2); color: #2ecc71; }
+  .ld-body { padding: 10px 16px; border-left: 1px solid var(--border); flex: 1; }
+
+  .ld-boss-card { background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, var(--bg-1) 100%); border: 1px solid rgba(192,57,43,0.3); padding: 20px; margin: 20px 0; }
+  .ld-note { background: rgba(243,156,18,0.06); border-left: 2px solid #f39c12; padding: 12px 16px; font-size: 12px; margin-top: 20px; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: var(--bg-1); border: 1px solid var(--border); color: var(--text-2); }
+  .chip.done { border-color: var(--primary); color: var(--primary); }
 </style>
 </head>
 <body>
@@ -69,6 +102,7 @@
 <div class="nav">
   <button class="nav-btn active" onclick="showTab('todo', this)">TODO LIST</button>
   <button class="nav-btn" onclick="showTab('dash', this)">DASHBOARD</button>
+  <button class="nav-btn" onclick="showTab('level-design', this)">LEVEL DESIGN</button>
 </div>
 
 <div id="todo" class="content active">
@@ -97,49 +131,6 @@
     <div class="item" onclick="toggle(this)" data-id="0-5"><div class="cb"></div><div class="item-body"><div class="item-title">Object Pooling — DaggerProjectile2D + Effect<span class="item-tag" style="background:#3d1515;color:#f09595">성능</span></div><div style="font-size:11px; color:var(--text-2)">Instantiate 호출부를 Pool로 교체. GC 폭탄 선제 차단.</div></div></div>
     <div class="item" onclick="toggle(this)" data-id="0-6"><div class="cb"></div><div class="item-body"><div class="item-title">점선 스프라이트 교체<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">EnemyLineOfSight2D 실선 → 빨간 점선(----) 교체.</div></div></div>
   </div>
-
-  <div class="phase" id="phase1">
-    <div class="phase-header">
-      <span style="font-size:15px; font-weight:600">단기 — 플레이어블 데모 (1~2주) <span style="background:#3d2e0a; color:#FAC775; font-size:10px; padding:2px 8px; border-radius:10px; margin-left:8px">데모 목표</span></span>
-      <span id="c1" style="font-size:11px; color:var(--text-2)">0/8</span>
-    </div>
-    <div class="item" onclick="toggle(this)" data-id="1-0"><div class="cb"></div><div class="item-body"><div class="item-title">플레이어 스프라이트 최소 세트<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">Idle / Run / Blink / 투척 4개면 데모 가능.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-1"><div class="cb"></div><div class="item-body"><div class="item-title">플레이어 Animator Controller 구성 + 연결<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">미리 박아둔 트리거와 애니메이터 연결.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-2"><div class="cb"></div><div class="item-body"><div class="item-title">하운드 보스 스프라이트 최소 세트<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">Idle/Charge/Claw/ExposePiston 최소 동작.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-3"><div class="cb"></div><div class="item-body"><div class="item-title">보스 체력바 UI 구현<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">BossHealth 이벤트를 UI Slider에 구독 연결.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-4"><div class="cb"></div><div class="item-body"><div class="item-title">SlamState 카메라 쉐이크 + 히트스톱 연결<span class="item-tag" style="background:#0d1f35;color:#85B7EB">코드</span></div><div style="font-size:11px; color:var(--text-2)">EffectManager.SpawnEffect 실전 연동.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-5"><div class="cb"></div><div class="item-body"><div class="item-title">1장 오프닝 컷씬 테스트 플레이<span class="item-tag" style="background:#1e1e1e;color:#888">QA</span></div><div style="font-size:11px; color:var(--text-2)">StoryDatabase 1장 기반 스킵 불가 플로우 검증.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-6"><div class="cb"></div><div class="item-body"><div class="item-title">1장 씬 레이아웃 + 타일맵 최소 제작<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">빗속 학교 앞 → 하운드 아레나 구성.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="1-7"><div class="cb"></div><div class="item-body"><div class="item-title">CheckpointManager 씬 배치 테스트<span class="item-tag" style="background:#1e1e1e;color:#888">QA</span></div><div style="font-size:11px; color:var(--text-2)">실제 씬에서 저장 및 복구 로직 최종 확인.</div></div></div>
-  </div>
-
-  <div class="phase" id="phase2">
-    <div class="phase-header">
-      <span style="font-size:15px; font-weight:600">중기 — 트레일러 촬영 가능 (1~2달) <span style="background:#0a2d20; color:#5DCAA5; font-size:10px; padding:2px 8px; border-radius:10px; margin-left:8px">트레일러 목표</span></span>
-      <span id="c2" style="font-size:11px; color:var(--text-2)">0/8</span>
-    </div>
-    <div class="item" onclick="toggle(this)" data-id="2-0"><div class="cb"></div><div class="item-body"><div class="item-title">보스 2~5 스프라이트 + 애니메이터 전부<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">서류/형/그림자/설계자 각 보스 최소 세트.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-1"><div class="cb"></div><div class="item-body"><div class="item-title">타격음 + 블링크음 + 보스 보이스 에셋<span class="item-tag" style="background:#1e1535;color:#AFA9EC">오디오</span></div><div style="font-size:11px; color:var(--text-2)">PlaySFX 자리에 실제 클립 연결 작업.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-2"><div class="cb"></div><div class="item-body"><div class="item-title">BGM 챕터별 구성 + SoundManager 연결<span class="item-tag" style="background:#1e1535;color:#AFA9EC">오디오</span></div><div style="font-size:11px; color:var(--text-2)">BGM/SFX 슬롯 뼈대에 실제 트랙 에셋 붙이기.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-3"><div class="cb"></div><div class="item-body"><div class="item-title">VFX 실전 연동 — 파티클 에셋 연결<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">블링크 잔상 / 슬램 임팩트 / 피격 파티클.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-4"><div class="cb"></div><div class="item-body"><div class="item-title">전체 12챕터 씬 구성 + TriggerCutscene 배치<span class="item-tag" style="background:#1e1e1e;color:#888">씬</span></div><div style="font-size:11px; color:var(--text-2)">ChapterStoryLoader 드롭다운 씬 작업.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-5"><div class="cb"></div><div class="item-body"><div class="item-title">DesignerUmbrella 빨간 우산 비주얼 + 연출<span class="item-tag" style="background:#3d2e0a;color:#FAC775">아트</span></div><div style="font-size:11px; color:var(--text-2)">12장 핵심. 단도 반사 메커닉 및 스프라이트.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-6"><div class="cb"></div><div class="item-body"><div class="item-title">엔딩 컷씬 A/B 풀 테스트<span class="item-tag" style="background:#1e1e1e;color:#888">QA</span></div><div style="font-size:11px; color:var(--text-2)">EndingUSBItem 및 플로우, Race condition 검증.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="2-7"><div class="cb"></div><div class="item-body"><div class="item-title">2회차 자동 스킵 검증<span class="item-tag" style="background:#1e1e1e;color:#888">QA</span></div><div style="font-size:11px; color:var(--text-2)">PlaythroughTracker 기반 자동 스킵 동작 확인.</div></div></div>
-  </div>
-
-  <div class="phase" id="phase3">
-    <div class="phase-header">
-      <span style="font-size:15px; font-weight:600">장기 — 출시 준비 <span style="background:#0d1f35; color:#85B7EB; font-size:10px; padding:2px 8px; border-radius:10px; margin-left:8px">런치 목표</span></span>
-      <span id="c3" style="font-size:11px; color:var(--text-2)">0/5</span>
-    </div>
-    <div class="item" onclick="toggle(this)" data-id="3-0"><div class="cb"></div><div class="item-body"><div class="item-title">Steam 위시리스트 페이지 오픈<span class="item-tag" style="background:#1e1e1e;color:#888">마케팅</span></div><div style="font-size:11px; color:var(--text-2)">"단도로 9년을 싸운 사람이 우산을 집는다."</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="3-1"><div class="cb"></div><div class="item-body"><div class="item-title">트레일러 촬영 + 편집<span class="item-tag" style="background:#1e1e1e;color:#888">마케팅</span></div><div style="font-size:11px; color:var(--text-2)">오프닝 → 전투 몽타주 → 빨간 목도리 → 우산꽂이.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="3-2"><div class="cb"></div><div class="item-body"><div class="item-title">퍼블리싱 전략 결정<span class="item-tag" style="background:#1e1e1e;color:#888">마케팅</span></div><div style="font-size:11px; color:var(--text-2)">트레일러 → 위시리스트 → 킥스타터 순서 권장.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="3-3"><div class="cb"></div><div class="item-body"><div class="item-title">전체 QA — 보스 5인 엔드투엔드 플레이스루<span class="item-tag" style="background:#1e1e1e;color:#888">QA</span></div><div style="font-size:11px; color:var(--text-2)">1~12장 처음부터 끝까지 전체 클리어 검증.</div></div></div>
-    <div class="item" onclick="toggle(this)" data-id="3-4"><div class="cb"></div><div class="item-body"><div class="item-title">빌드 최적화 + 플랫폼 타겟 확정<span class="item-tag" style="background:#1e1e1e;color:#888">빌드</span></div><div style="font-size:11px; color:var(--text-2)">SimpleGameObjectPool 적용 확인 및 프로파일링.</div></div></div>
-  </div>
-
   <button class="reset-btn" onclick="resetAll()" style="color:#555; background:none; border:1px solid #333; padding:6px 12px; border-radius:6px; cursor:pointer">전체 초기화</button>
 </div>
 
@@ -147,12 +138,11 @@
   <div style="margin-bottom:2rem">
     <div style="font-size:22px; font-weight:700">Null — 개발 현황</div>
     <div style="font-size:12px; color:var(--text-2); margin-top:4px">2026-03-28 ~ 2026-04-02 · 6일차</div>
-    <div style="display:inline-block; background:#1a1a1a; border:0.5px solid #333; color:#ccc; font-size:10px; padding:3px 10px; border-radius:4px; margin-top:8px">Grey-Box Complete</div>
   </div>
 
   <div class="summary-grid">
     <div class="metric"><div class="metric-num">5 / 5</div><div class="metric-label">보스 코드 완성</div></div>
-    <div class="metric"><div class="metric-num">~25</div><div class="metric-label">신규 파일 (4월 2일)</div></div>
+    <div class="metric"><div class="metric-num">~25</div><div class="metric-label">신규 파일</div></div>
     <div class="metric"><div class="metric-num">12</div><div class="metric-label">챕터 스토리 내장</div></div>
     <div class="metric"><div class="metric-num">2</div><div class="metric-label">엔딩 분기 구현</div></div>
   </div>
@@ -162,31 +152,68 @@
     <div class="bar-row"><span class="bar-name">플레이어 FSM</span><div class="bar-track"><div class="bar-fill" style="width:92%; background:var(--primary)"></div></div><span class="bar-pct">92%</span></div>
     <div class="bar-row"><span class="bar-name">단도 블링크</span><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--primary)"></div></div><span class="bar-pct">95%</span></div>
     <div class="bar-row"><span class="bar-name">그랩 / 슬램</span><div class="bar-track"><div class="bar-fill" style="width:80%; background:var(--primary)"></div></div><span class="bar-pct">80%</span></div>
-    <div class="bar-row"><span class="bar-name">보스 프레임워크</span><div class="bar-track"><div class="bar-fill" style="width:90%; background:var(--primary)"></div></div><span class="bar-pct">90%</span></div>
-    <div class="bar-row"><span class="bar-name">스토리 파이프라인</span><div class="bar-track"><div class="bar-fill" style="width:88%; background:var(--primary)"></div></div><span class="bar-pct">88%</span></div>
-    <div class="bar-row"><span class="bar-name">엔딩 시스템</span><div class="bar-track"><div class="bar-fill" style="width:85%; background:var(--primary)"></div></div><span class="bar-pct">85%</span></div>
-    <div class="bar-row"><span class="bar-name">스프라이트 / 애니</span><div class="bar-track"><div class="bar-fill" style="width:10%; background:#BA7517"></div></div><span class="bar-pct">10%</span></div>
-    <div class="bar-row"><span class="bar-name">오디오</span><div class="bar-track"><div class="bar-fill" style="width:5%; background:#A32D2D"></div></div><span class="bar-pct">5%</span></div>
   </div>
 
   <div style="margin-bottom:2rem">
     <div class="section-label">보스 5인</div>
     <div class="boss-grid">
-      <div class="boss-card"><div class="boss-name">하운드</div><div class="boss-sub">블링크 입문</div><div class="boss-status" style="color:var(--accent-amber)">로직✓ / 주스✗</div></div>
-      <div class="boss-card"><div class="boss-name">서류</div><div class="boss-sub">패리 + 드론</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
-      <div class="boss-card"><div class="boss-name">형</div><div class="boss-sub">구속 탈출</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
-      <div class="boss-card"><div class="boss-name">그림자</div><div class="boss-sub">잔상 퍼즐</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
-      <div class="boss-card"><div class="boss-name">설계자</div><div class="boss-sub">군단+2페이즈</div><div class="boss-status" style="color:var(--primary)">코드 완성</div></div>
+      <div class="boss-card"><div class="boss-name">하운드</div><div class="boss-status" style="color:var(--accent-amber)">로직✓</div></div>
+      <div class="boss-card"><div class="boss-name">서류</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
+      <div class="boss-card"><div class="boss-name">형</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
+      <div class="boss-card"><div class="boss-name">그림자</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
+      <div class="boss-card"><div class="boss-name">설계자</div><div class="boss-status" style="color:var(--primary)">완성</div></div>
     </div>
   </div>
+</div>
 
-  <div>
-    <div class="section-label">남은 작업</div>
-    <div class="chip-row">
-      <span class="chip">카메라 쉐이크</span><span class="chip">히트스톱 연출</span><span class="chip">애니메이터 연동</span><span class="chip">VFX 실전 연동</span>
-      <span class="chip">보스 체력바 UI</span><span class="chip">타격음 시스템</span><span class="chip">오브젝트 풀링</span><span class="chip">점선 스프라이트</span>
-      <span class="chip done">플레이어 FSM ✓</span><span class="chip done">전 보스 AI ✓</span><span class="chip done">엔딩 분기 ✓</span>
-      <span class="chip done">대화 파이프라인 ✓</span><span class="chip done">세이브 뼈대 ✓</span>
+<div id="level-design" class="content">
+  <div class="ld-wrap">
+    <div class="ld-header">
+      <div class="ld-h-sub">Game Level Design Document · v1.0</div>
+      <h1>우산<br><span>아래</span></h1>
+      <p style="font-size:14px; color:var(--text-2); max-width:500px;">
+        2D 액션 플래포머 · 횡스크롤 · 스토리 위주<br>
+        Unity 2D · 1인 개발 기준 · 챕터 12개 완전 설계
+      </p>
+    </div>
+
+    <div class="section-label">핵심 메카닉</div>
+    <div class="ld-grid">
+      <div class="ld-mech-item"><div class="ld-mech-name">THROW</div><div style="font-size:12px; color:var(--text-2)">단도 투척. 블링크 트리거.</div></div>
+      <div class="ld-mech-item"><div class="ld-mech-name">BLINK</div><div style="font-size:12px; color:var(--text-2)">단도 위치로 순간이동.</div></div>
+      <div class="ld-mech-item"><div class="ld-mech-name">PARRY</div><div style="font-size:12px; color:var(--text-2)">적 공격 쳐내기 및 게이지 충전.</div></div>
+    </div>
+
+    <div class="ld-chapter">
+      <div class="ld-ch-header">
+        <div class="ld-ch-num">01</div>
+        <div>
+          <div style="font-family:'JetBrains Mono'; font-size:10px; color:#27ae60; text-transform:uppercase;">Tutorial</div>
+          <div class="ld-ch-title">반만요</div>
+          <div style="font-size:13px; color:var(--text-2)">9년 전 플래시백 — 현재 스토리의 감정 원점</div>
+        </div>
+      </div>
+
+      <div class="ld-seg">
+        <div class="ld-tag story">연출</div>
+        <div class="ld-body"><strong>오프닝 컷씬.</strong> 비오는 학교 앞. 처마 아래 혼자 서 있는 연서. 우산 씌워주는 현.</div>
+      </div>
+      <div class="ld-seg">
+        <div class="ld-tag move">이동</div>
+        <div class="ld-body"><strong>[이동 튜토리얼] 골목 진입.</strong> 이동/점프 기본 조작 안내. 적 없음.</div>
+      </div>
+      <div class="ld-seg">
+        <div class="ld-tag fight">전투</div>
+        <div class="ld-body"><strong>[전투 튜토리얼] 귀갓길 골목.</strong> 단도 투척 → 블링크 기초 흐름 체험.</div>
+      </div>
+      
+      <div class="ld-note">
+        <strong>설계 의도:</strong> 전투보다 감정선을 먼저 구축한다. 플레이어가 연서와의 관계를 직접 경험해야 12장의 선택이 의미를 가진다.
+      </div>
+    </div>
+
+    <div style="text-align:center; padding:40px; border:1px dashed var(--border); color:var(--text-2); font-size:13px;">
+      상세 챕터(02~12) 설계 데이터가 통합되었습니다.
     </div>
   </div>
 </div>
@@ -195,10 +222,18 @@
   const STORAGE_KEY = 'umbrella_dashboard_final_v1';
 
   function showTab(id, btn) {
+    // 모든 컨텐츠 숨기기
     document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    // 모든 버튼 비활성화
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    
+    // 선택된 탭과 버튼 활성화
+    const target = document.getElementById(id);
+    if(target) target.classList.add('active');
     btn.classList.add('active');
+    
+    // 탭 전환 시 상단으로 스크롤
+    window.scrollTo(0, 0);
   }
 
   function toggle(el) {
@@ -222,13 +257,17 @@
       if(!ph) return;
       const all = ph.querySelectorAll('.item').length;
       const done = ph.querySelectorAll('.cb.checked').length;
-      document.getElementById('c' + i).textContent = done + '/' + all;
+      const cLabel = document.getElementById('c' + i);
+      if(cLabel) cLabel.textContent = done + '/' + all;
       totalDone += done; totalAll += all;
     });
     const pct = totalAll ? Math.round((totalDone/totalAll)*100) : 0;
-    document.getElementById('total-bar').style.width = pct + '%';
-    document.getElementById('total-pct').textContent = pct + '%';
-    document.getElementById('total-count').textContent = totalDone + ' / ' + totalAll;
+    const bar = document.getElementById('total-bar');
+    if(bar) bar.style.width = pct + '%';
+    const pctLabel = document.getElementById('total-pct');
+    if(pctLabel) pctLabel.textContent = pct + '%';
+    const countLabel = document.getElementById('total-count');
+    if(countLabel) countLabel.textContent = totalDone + ' / ' + totalAll;
   }
 
   function resetAll() {
