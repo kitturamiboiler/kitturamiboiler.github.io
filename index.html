@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>통합 개발 허브</title>
+<title>Null — 통합 개발 허브</title>
 <style>
   :root {
     --bg-0: #0a0a0a; --bg-1: #141414; --bg-2: #1f1f1f;
@@ -59,6 +60,74 @@
   .cb.checked::after { content: '✓'; color: white; font-size: 12px; position: absolute; left: 3px; top: -1px; }
   .item-title.checked { text-decoration: line-through; color: var(--text-2); }
   .item-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+
+  /* ── DEV LOG CARDS ── */
+  .log-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #141414;
+    border: 1px solid #222;
+    border-left: 3px solid var(--lc, #555);
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+    border-radius: 0 6px 6px 0;
+  }
+  .log-card:hover {
+    background: #1a1a1a;
+    border-color: #333;
+    border-left-color: var(--lc, #555);
+    transform: translateX(4px);
+  }
+  .log-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--lc, #555);
+    white-space: nowrap;
+    min-width: 92px;
+    letter-spacing: 0.05em;
+  }
+  .log-title {
+    font-size: 14px;
+    color: #e0e0e0;
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.5;
+  }
+  .log-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .log-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    color: #444;
+    border: 1px solid #2a2a2a;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .log-arrow {
+    font-size: 14px;
+    color: #333;
+    transition: all 0.18s;
+    margin-left: 8px;
+  }
+  .log-card:hover .log-arrow {
+    color: var(--lc, #555);
+    transform: translateX(3px);
+  }
+  @media(max-width:600px) {
+    .log-card { flex-wrap: wrap; }
+    .log-tags { justify-content: flex-start; }
+    .log-arrow { display: none; }
+  }
 
   /* ══════════════════════════════
      INTRO / LANDING PAGE
@@ -161,11 +230,11 @@
 
   /* 카드 3개 */
   #intro .i-cards {
-    display: grid; grid-template-columns: repeat(3,1fr);
+    display: grid; grid-template-columns: repeat(2,1fr);
     gap: 12px; width: 100%; max-width: 700px; margin: 0 auto;
     animation: i-up 1s 0.52s ease both;
   }
-  @media(max-width:560px){ #intro .i-cards { grid-template-columns:1fr; } }
+  @media(max-width:640px){ #intro .i-cards { grid-template-columns:1fr; } }
 
   #intro .i-card {
     background: rgba(255,255,255,0.02);
@@ -934,13 +1003,14 @@
         <div class="ct">LEVEL DESIGN</div>
         <div class="cd">12챕터 완전 설계<br>보스 페이즈 & 엔딩 분기</div>
       </div>
-    <div class="i-card" style="--ca:#e74c3c" onclick="goTo('LOGS')">
+      <div class="i-card" style="--ca:#85B7EB" onclick="goTo('devlog')">
         <span class="ca">↗</span>
         <div class="cn">04 · LOG</div>
         <div class="ct">DEV LOGS</div>
-        <div class="cd">개발 일지 아카이브<br>폴더 구조 · 고스트 AI · 픽셀 아트</div>
+        <div class="cd">개발 일지 9회차<br>2026.03.28 → 진행 중</div>
       </div>
-   </div>
+    </div>
+
   </div>
 </div>
 
@@ -1039,7 +1109,6 @@
     <div class="section-label">시스템 완성도</div>
     <div class="bar-row"><span class="bar-name">플레이어 FSM</span><div class="bar-track"><div class="bar-fill" style="width:92%; background:var(--primary)"></div></div><span class="bar-pct">92%</span></div>
     <div class="bar-row"><span class="bar-name">단도 블링크</span><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--primary)"></div></div><span class="bar-pct">95%</span></div>
-    <div class="bar-row"><span class="bar-name">레벨 디자인</span><div class="bar-track"><div class="bar-fill" style="width:95%; background:var(--primary)"></div></div><span class="bar-pct">97%</span></div>
     <div class="bar-row"><span class="bar-name">그랩 / 슬램</span><div class="bar-track"><div class="bar-fill" style="width:80%; background:var(--primary)"></div></div><span class="bar-pct">80%</span></div>
     <div class="bar-row"><span class="bar-name">보스 프레임워크</span><div class="bar-track"><div class="bar-fill" style="width:90%; background:var(--primary)"></div></div><span class="bar-pct">90%</span></div>
     <div class="bar-row"><span class="bar-name">스토리 파이프라인</span><div class="bar-track"><div class="bar-fill" style="width:88%; background:var(--primary)"></div></div><span class="bar-pct">88%</span></div>
@@ -1065,7 +1134,7 @@
       <span class="chip">카메라 쉐이크</span><span class="chip">히트스톱 연출</span><span class="chip">애니메이터 연동</span><span class="chip">VFX 실전 연동</span>
       <span class="chip">보스 체력바 UI</span><span class="chip">타격음 시스템</span><span class="chip">오브젝트 풀링</span><span class="chip">점선 스프라이트</span>
       <span class="chip done">플레이어 FSM ✓</span><span class="chip done">전 보스 AI ✓</span><span class="chip done">엔딩 분기 ✓</span>
-      <span class="chip done">대화 파이프라인 ✓</span><span class="chip done">세이브 뼈대 ✓</span><span class="chip done">레벨 디자인 ✓</span>
+      <span class="chip done">대화 파이프라인 ✓</span><span class="chip done">세이브 뼈대 ✓</span>
     </div>
   </div>
 </div>
@@ -1082,7 +1151,7 @@
     // 타겟 콘텐츠 표시
     document.getElementById(id).classList.add('active');
     // 페이지 타이틀 업데이트
-    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN' };
+    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS' };
     document.getElementById('page-title').textContent = titles[id] || '';
     window.scrollTo(0,0);
   }
@@ -2203,6 +2272,98 @@
 </footer>
 
 </div>
+
+</div>
+
+<div id="devlog" class="content">
+
+  <!-- 헤더 -->
+  <div style="margin-bottom:2.5rem">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.25em;color:#85B7EB;text-transform:uppercase;margin-bottom:12px">Development Journal · Null</div>
+    <h1 style="font-size:26px;font-weight:700;color:#fff;margin-bottom:6px">개발 일지</h1>
+    <p style="font-size:12px;color:#555">2026.03.28 ~ 진행 중 &nbsp;·&nbsp; Unity 2D &nbsp;·&nbsp; 1인 개발</p>
+  </div>
+
+  <!-- 진행 표시줄 -->
+  <div style="background:#141414;border:1px solid #222;border-radius:10px;padding:16px 20px;margin-bottom:2.5rem;display:flex;align-items:center;gap:16px">
+    <span style="font-size:11px;color:#555;white-space:nowrap;font-family:'JetBrains Mono',monospace">총 9회차</span>
+    <div style="flex:1;height:4px;background:#222;border-radius:2px;overflow:hidden">
+      <div style="width:9%;height:100%;background:#85B7EB;border-radius:2px"></div>
+    </div>
+    <span style="font-size:11px;color:#85B7EB;font-family:'JetBrains Mono',monospace;white-space:nowrap">Grey-Box Complete</span>
+  </div>
+
+  <!-- 목차 카드 리스트 -->
+  <div style="display:flex;flex-direction:column;gap:8px">
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#5DCAA5">
+      <div class="log-date">2026-03-28</div>
+      <div class="log-title">Dagger Blink System 기틀 마련 및 벽 타기 구현</div>
+      <div class="log-tags"><span class="log-tag">블링크</span><span class="log-tag">벽타기</span><span class="log-tag">시스템</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#5DCAA5">
+      <div class="log-date">2026-03-29</div>
+      <div class="log-title">산나비식 기동성 개편 및 자동 블링크 도입</div>
+      <div class="log-tags"><span class="log-tag">기동성</span><span class="log-tag">자동블링크</span><span class="log-tag">이동</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#FAC775">
+      <div class="log-date">2026-03-31</div>
+      <div class="log-title">코드 리팩토링</div>
+      <div class="log-tags"><span class="log-tag">리팩토링</span><span class="log-tag">구조</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#FAC775">
+      <div class="log-date">2026-04-01</div>
+      <div class="log-title">코드 리팩토링 2</div>
+      <div class="log-tags"><span class="log-tag">리팩토링</span><span class="log-tag">정리</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#85B7EB">
+      <div class="log-date">2026-04-01</div>
+      <div class="log-title">FSM 안정화 및 전투 입력</div>
+      <div class="log-tags"><span class="log-tag">FSM</span><span class="log-tag">전투</span><span class="log-tag">입력시스템</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#f09595">
+      <div class="log-date">2026-04-02</div>
+      <div class="log-title">Boss 설계, 엔딩 크레딧 설계</div>
+      <div class="log-tags"><span class="log-tag">보스AI</span><span class="log-tag">엔딩</span><span class="log-tag">크레딧</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#f09595">
+      <div class="log-date">2026-04-03</div>
+      <div class="log-title">컴파일 · Safe Mode 에러 수정</div>
+      <div class="log-tags"><span class="log-tag">버그수정</span><span class="log-tag">컴파일</span><span class="log-tag">SafeMode</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#AFA9EC">
+      <div class="log-date">2026-04-03</div>
+      <div class="log-title">Ground 마스크 · 단검 풀 · 사운드 · Animator 인프라</div>
+      <div class="log-tags"><span class="log-tag">인프라</span><span class="log-tag">풀링</span><span class="log-tag">사운드</span><span class="log-tag">Animator</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="alert('준비 중입니다')" style="--lc:#AFA9EC">
+      <div class="log-date">2026-04-04</div>
+      <div class="log-title">Git 정리 · Unity 씬/폴더 구조 · Pixel Perfect · 단검 물리</div>
+      <div class="log-tags"><span class="log-tag">Git</span><span class="log-tag">씬구조</span><span class="log-tag">PixelPerfect</span><span class="log-tag">물리</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1e1e1e;font-family:'JetBrains Mono',monospace;font-size:11px;color:#333;text-align:center">
+    각 일지를 클릭하면 상세 내용으로 연결됩니다.
+  </div>
 
 </div>
 
