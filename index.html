@@ -13,12 +13,9 @@
     --accent-amber: #FAC775; --accent-blue: #85B7EB;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-0);color:var(--text-1);padding:1.5rem;line-height:1.5}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-0);color:var(--text-1);padding:0;line-height:1.5}
   
-  /* Navigation */
-  .nav { display: flex; gap: 8px; margin-bottom: 2rem; background: var(--bg-1); padding: 4px; border-radius: 8px; border: 1px solid var(--border); width: fit-content; }
-  .nav-btn { background: none; border: none; color: var(--text-2); font-size: 13px; font-weight: 500; cursor: pointer; padding: 6px 16px; border-radius: 6px; transition: all .2s; }
-  .nav-btn.active { background: var(--bg-2); color: var(--text-0); box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+  
 
   .content { display: none; }
   .content.active { display: block; animation: fadeIn 0.3s ease-out; }
@@ -63,6 +60,172 @@
   .cb.checked::after { content: '✓'; color: white; font-size: 12px; position: absolute; left: 3px; top: -1px; }
   .item-title.checked { text-decoration: line-through; color: var(--text-2); }
   .item-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+
+  /* ══════════════════════════════
+     INTRO / LANDING PAGE
+  ══════════════════════════════ */
+  #intro {
+    position: relative;
+    min-height: 100vh;
+    background: #06060a;
+    overflow: hidden;
+  }
+  #intro .rain {
+    position: absolute; inset: 0;
+    overflow: hidden; pointer-events: none; z-index: 0;
+  }
+  #intro .rain-line {
+    position: absolute; top: -20%;
+    width: 1px; height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(180,210,255,0.18), transparent);
+    animation: i-fall linear infinite; opacity: 0;
+  }
+  #intro.active { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; }
+  @keyframes i-fall {
+    0%   { transform: translateY(-10vh) rotate(8deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(8deg); opacity: 0; }
+  }
+  #intro::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+  #intro::after {
+    content: ''; position: absolute; bottom: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 320px;
+    background: radial-gradient(ellipse, rgba(192,57,43,0.13) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  #intro .intro-inner {
+    position: relative; z-index: 1;
+    text-align: center; max-width: 820px; width: 100%;
+  }
+  #intro .i-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.28);
+    padding: 5px 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.25em; text-transform: uppercase; color: #e74c3c;
+    margin-bottom: 36px;
+    animation: i-up 0.8s ease both;
+  }
+  #intro .i-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: #e74c3c; animation: i-blink 1.4s ease infinite;
+  }
+  @keyframes i-blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+  #intro .i-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 156px);
+    line-height: 0.88; letter-spacing: 0.02em; color: #ffffff;
+    margin-bottom: 6px;
+    animation: i-up 0.9s 0.1s ease both;
+  }
+  #intro .i-title .r { color: #e74c3c; }
+
+  #intro .i-en {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.35em; color: rgba(255,255,255,0.18);
+    text-transform: uppercase; margin-bottom: 48px;
+    animation: i-up 0.9s 0.18s ease both;
+  }
+  #intro .i-line {
+    width: 0px; height: 1px; background: #e74c3c;
+    margin: 0 auto 40px;
+    animation: i-expand 1s 0.28s ease both;
+  }
+  @keyframes i-expand { to { width: 64px; } }
+
+  #intro .i-desc {
+    font-family: 'Noto Serif KR', serif; font-size: 15px;
+    line-height: 2.1; color: rgba(212,207,200,0.72);
+    max-width: 540px; margin: 0 auto 52px; font-weight: 300;
+    animation: i-up 1s 0.36s ease both;
+  }
+  #intro .i-desc strong { color: #d4cfc8; font-weight: 600; }
+
+  #intro .i-tags {
+    display: flex; gap: 8px; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 60px;
+    animation: i-up 1s 0.44s ease both;
+  }
+  #intro .i-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.28);
+    border: 1px solid rgba(255,255,255,0.07); padding: 4px 12px;
+    text-transform: uppercase;
+  }
+
+  /* 카드 3개 */
+  #intro .i-cards {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 12px; width: 100%; max-width: 700px; margin: 0 auto;
+    animation: i-up 1s 0.52s ease both;
+  }
+  @media(max-width:560px){ #intro .i-cards { grid-template-columns:1fr; } }
+
+  #intro .i-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 26px 20px 22px; cursor: pointer;
+    transition: all 0.24s ease; text-align: left;
+    position: relative; overflow: hidden;
+  }
+  #intro .i-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--ca, #e74c3c);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.28s ease;
+  }
+  #intro .i-card:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.14);
+    transform: translateY(-4px);
+  }
+  #intro .i-card:hover::after { transform: scaleX(1); }
+
+  #intro .i-card .cn {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ca, #e74c3c); letter-spacing: 0.15em;
+    margin-bottom: 10px; opacity: 0.75;
+  }
+  #intro .i-card .ct {
+    font-family: 'Bebas Neue', sans-serif; font-size: 24px;
+    letter-spacing: 0.06em; color: #fff; margin-bottom: 8px;
+  }
+  #intro .i-card .cd {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: rgba(255,255,255,0.28); line-height: 1.7; letter-spacing: 0.04em;
+  }
+  #intro .i-card .ca {
+    position: absolute; top: 18px; right: 18px;
+    font-size: 13px; color: rgba(255,255,255,0.12);
+    transition: all 0.24s;
+  }
+  #intro .i-card:hover .ca { color: var(--ca,#e74c3c); transform: translate(3px,-3px); }
+
+  @keyframes i-up {
+    from { opacity:0; transform:translateY(22px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* 메인 랩 */
+  #main-wrap { padding: 1.5rem; display: none; }
+  .back-home {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: none; border: 1px solid #2a2a2a; color: #555;
+    font-size: 11px; padding: 5px 12px; border-radius: 6px;
+    cursor: pointer; margin-bottom: 0; transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+    white-space:nowrap; flex-shrink:0;
+  }
+  .back-home:hover { color: #e74c3c; border-color: rgba(231,76,60,0.5); }
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
@@ -684,13 +847,105 @@
 </head>
 <body>
 
-<div class="nav">
-  <button class="nav-btn active" onclick="showTab('todo', this)">TODO LIST</button>
-  <button class="nav-btn" onclick="showTab('dash', this)">DASHBOARD</button>
-  <button class="nav-btn" onclick="showTab('level', this)">LEVEL DESIGN</button>
+
+<div id="intro" class="content active">
+  <div class="rain"><div class="rain-line" style="left:41%;animation-delay:8.53s;animation-duration:2.63s;height:54px"></div>
+    <div class="rain-line" style="left:9%;animation-delay:7.39s;animation-duration:1.84s;height:122px"></div>
+    <div class="rain-line" style="left:7%;animation-delay:8.19s;animation-duration:2.16s;height:59px"></div>
+    <div class="rain-line" style="left:55%;animation-delay:3.76s;animation-duration:2.23s;height:118px"></div>
+    <div class="rain-line" style="left:54%;animation-delay:0.53s;animation-duration:3.07s;height:76px"></div>
+    <div class="rain-line" style="left:80%;animation-delay:5.65s;animation-duration:4.06s;height:121px"></div>
+    <div class="rain-line" style="left:74%;animation-delay:3.57s;animation-duration:4.14s;height:53px"></div>
+    <div class="rain-line" style="left:71%;animation-delay:7.73s;animation-duration:2.35s;height:66px"></div>
+    <div class="rain-line" style="left:69%;animation-delay:1.06s;animation-duration:2.4s;height:71px"></div>
+    <div class="rain-line" style="left:13%;animation-delay:5.23s;animation-duration:3.26s;height:95px"></div>
+    <div class="rain-line" style="left:12%;animation-delay:4.93s;animation-duration:1.76s;height:55px"></div>
+    <div class="rain-line" style="left:79%;animation-delay:1.85s;animation-duration:3.37s;height:102px"></div>
+    <div class="rain-line" style="left:99%;animation-delay:2.83s;animation-duration:3.12s;height:106px"></div>
+    <div class="rain-line" style="left:46%;animation-delay:2.7s;animation-duration:3.67s;height:79px"></div>
+    <div class="rain-line" style="left:10%;animation-delay:5.17s;animation-duration:2.97s;height:91px"></div>
+    <div class="rain-line" style="left:93%;animation-delay:4.04s;animation-duration:3.18s;height:57px"></div>
+    <div class="rain-line" style="left:15%;animation-delay:4.61s;animation-duration:2.03s;height:91px"></div>
+    <div class="rain-line" style="left:19%;animation-delay:8.4s;animation-duration:2.7s;height:57px"></div>
+    <div class="rain-line" style="left:97%;animation-delay:5.02s;animation-duration:3.65s;height:88px"></div>
+    <div class="rain-line" style="left:43%;animation-delay:6.26s;animation-duration:3.15s;height:122px"></div>
+    <div class="rain-line" style="left:58%;animation-delay:0.62s;animation-duration:1.84s;height:82px"></div>
+    <div class="rain-line" style="left:60%;animation-delay:6.27s;animation-duration:1.77s;height:87px"></div>
+    <div class="rain-line" style="left:82%;animation-delay:5.2s;animation-duration:3.37s;height:105px"></div>
+    <div class="rain-line" style="left:36%;animation-delay:6.45s;animation-duration:3.91s;height:92px"></div>
+    <div class="rain-line" style="left:2%;animation-delay:8.47s;animation-duration:2.52s;height:126px"></div>
+    <div class="rain-line" style="left:14%;animation-delay:4.44s;animation-duration:2.17s;height:84px"></div>
+    <div class="rain-line" style="left:16%;animation-delay:6.65s;animation-duration:2.63s;height:111px"></div>
+    <div class="rain-line" style="left:10%;animation-delay:1.5s;animation-duration:2.64s;height:83px"></div>
+    <div class="rain-line" style="left:17%;animation-delay:7.37s;animation-duration:3.85s;height:83px"></div>
+    <div class="rain-line" style="left:90%;animation-delay:3.74s;animation-duration:2.53s;height:96px"></div>
+    <div class="rain-line" style="left:29%;animation-delay:1.36s;animation-duration:2.06s;height:77px"></div>
+    <div class="rain-line" style="left:84%;animation-delay:2.1s;animation-duration:2.86s;height:123px"></div>
+    <div class="rain-line" style="left:23%;animation-delay:2.36s;animation-duration:1.61s;height:101px"></div>
+    <div class="rain-line" style="left:68%;animation-delay:3.32s;animation-duration:3.07s;height:64px"></div>
+    <div class="rain-line" style="left:88%;animation-delay:7.73s;animation-duration:4.07s;height:54px"></div>
+    <div class="rain-line" style="left:58%;animation-delay:8.1s;animation-duration:3.63s;height:119px"></div>
+    <div class="rain-line" style="left:50%;animation-delay:3.58s;animation-duration:2.62s;height:109px"></div>
+    <div class="rain-line" style="left:81%;animation-delay:3.6s;animation-duration:2.1s;height:74px"></div>
+    <div class="rain-line" style="left:56%;animation-delay:1.46s;animation-duration:2.48s;height:54px"></div>
+    <div class="rain-line" style="left:13%;animation-delay:0.0s;animation-duration:1.99s;height:60px"></div>
+    <div class="rain-line" style="left:46%;animation-delay:5.52s;animation-duration:1.78s;height:74px"></div>
+    <div class="rain-line" style="left:78%;animation-delay:3.39s;animation-duration:3.25s;height:92px"></div>
+    </div>
+  <div class="intro-inner">
+
+    <div class="i-badge">2D Action Platformer · Solo Dev · Unity 2026</div>
+
+    <div class="i-title">우산<br><span class="r">아래</span></div>
+    <div class="i-en">UNDER THE UMBRELLA</div>
+    <div class="i-line"></div>
+
+    <p class="i-desc">
+      <strong>9년 전, 현은 연서에게 우산을 씌워줬다.</strong><br>
+      9년 후, 그는 그 이유를 모른 채 돌아온다.<br><br>
+      단도와 블링크로 싸우는 사이버네틱 요원.<br>
+      복종 회로, 설계된 감정, 그리고 빨간 우산 하나.<br>
+      <strong>설계든 아니든, 지금 이 마음은 내 거야.</strong>
+    </p>
+
+    <div class="i-tags">
+      <span class="i-tag">횡스크롤 액션</span>
+      <span class="i-tag">스토리 위주</span>
+      <span class="i-tag">12 챕터</span>
+      <span class="i-tag">엔딩 분기 A / B</span>
+      <span class="i-tag">사이버네틱 느와르</span>
+    </div>
+
+    <div class="i-cards">
+      <div class="i-card" style="--ca:#f09595" onclick="goTo('todo')">
+        <span class="ca">↗</span>
+        <div class="cn">01 · TODO</div>
+        <div class="ct">TODO LIST</div>
+        <div class="cd">28개 태스크<br>단계별 개발 체크리스트</div>
+      </div>
+      <div class="i-card" style="--ca:#FAC775" onclick="goTo('dash')">
+        <span class="ca">↗</span>
+        <div class="cn">02 · DASH</div>
+        <div class="ct">DASHBOARD</div>
+        <div class="cd">시스템 완성도<br>보스 5인 현황</div>
+      </div>
+      <div class="i-card" style="--ca:#e74c3c" onclick="goTo('level')">
+        <span class="ca">↗</span>
+        <div class="cn">03 · DESIGN</div>
+        <div class="ct">LEVEL DESIGN</div>
+        <div class="cd">12챕터 완전 설계<br>보스 페이즈 & 엔딩 분기</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div id="todo" class="content active">
+<div id="main-wrap">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid #1e1e1e;">
+    <button class="back-home" onclick="goHome()" style="margin-bottom:0">← 홈으로</button>
+    <span id="page-title" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#444;text-transform:uppercase;"></span>
+  </div>
+<div id="todo" class="content">
   <div style="margin-bottom:1.5rem">
     <h1 style="font-size:22px; font-weight:700">Null — 개발 TODO</h1>
     <p style="font-size:12px; color:var(--text-2)">체크 상태는 브라우저 로컬 스토리지에 자동 저장됩니다.</p>
@@ -813,11 +1068,25 @@
 <script>
   const STORAGE_KEY = 'umbrella_dashboard_final_v1';
 
-  function showTab(id, btn) {
-    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  function goTo(id) {
+    // 인트로 숨기기
+    document.getElementById('intro').classList.remove('active');
+    document.getElementById('main-wrap').style.display = 'block';
+    // 이전 콘텐츠 모두 숨기기
+    document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+    // 타겟 콘텐츠 표시
     document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+    // 페이지 타이틀 업데이트
+    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN' };
+    document.getElementById('page-title').textContent = titles[id] || '';
+    window.scrollTo(0,0);
+  }
+
+  function goHome() {
+    document.getElementById('main-wrap').style.display = 'none';
+    document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+    document.getElementById('intro').classList.add('active');
+    window.scrollTo(0,0);
   }
 
   function toggle(el) {
@@ -1927,6 +2196,8 @@
   <span>우산 아래 — Level Design Document v1.0</span>
   <span>12 Chapters · Unity 2D · Solo Dev</span>
 </footer>
+
+</div>
 
 </div>
 
