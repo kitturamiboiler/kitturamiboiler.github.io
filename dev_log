@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Log: 2026-04-01 | 우산 아래</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404040; }
+    </style>
+</head>
+<body class="bg-neutral-950 text-neutral-300 font-sans antialiased selection:bg-red-900 selection:text-white">
+
+    <nav class="max-w-3xl mx-auto px-6 py-8 border-b border-neutral-900">
+        <a href="index.html#section-logs" class="text-neutral-500 hover:text-white transition-colors text-sm flex items-center gap-2">
+            <span>←</span> Back to Hub
+        </a>
+    </nav>
+
+    <header class="max-w-3xl mx-auto px-6 py-12">
+        <div class="text-red-500 font-mono text-sm mb-4 tracking-wider">DEV LOG · 2026-04-01</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-neutral-100 tracking-tight leading-tight mb-6">
+            FSM 안정화 및 Boss 전투 프레임워크 구축
+        </h1>
+        <div class="flex flex-wrap gap-2">
+            <span class="text-xs px-2 py-1 bg-neutral-900 border border-neutral-800 text-neutral-400 rounded">Core Mechanic</span>
+            <span class="text-xs px-2 py-1 bg-neutral-900 border border-neutral-800 text-neutral-400 rounded">FSM</span>
+            <span class="text-xs px-2 py-1 bg-neutral-900 border border-neutral-800 text-neutral-400 rounded">Boss Design</span>
+        </div>
+    </header>
+
+    <article class="max-w-3xl mx-auto px-6 pb-24 space-y-12 leading-relaxed">
+        
+        <section>
+            <h2 class="text-2xl font-bold text-neutral-200 mb-6 border-b border-neutral-800 pb-2">🎮 Core Gameplay Loop</h2>
+            <p class="mb-4 text-neutral-400">세 가지 메카닉이 유기적으로 연결되는 전투 루프입니다.</p>
+            
+            <div class="overflow-x-auto border border-neutral-800 rounded-lg">
+                <table class="w-full text-sm text-left text-neutral-400">
+                    <thead class="bg-neutral-900 text-neutral-200 border-b border-neutral-800">
+                        <tr>
+                            <th class="px-4 py-3 w-1/4">메카닉</th>
+                            <th class="px-4 py-3">설명</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-800 bg-neutral-950">
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 font-bold text-red-400">Blink (순간이동)</td>
+                            <td class="px-4 py-3">투사체 패링 시 즉시 충전되는 초고속 이동기</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 font-bold text-neutral-200">Grab (제압)</td>
+                            <td class="px-4 py-3">적의 약점을 낚아채어 물리 소유권을 강제 획득</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 font-bold text-neutral-200">Slam (강타)</td>
+                            <td class="px-4 py-3">적을 지면에 메쳐 광역 데미지와 아머를 파괴하는 피니셔</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-neutral-200 mb-6 border-b border-neutral-800 pb-2">🏗️ Technical Architecture (v2.1)</h2>
+            
+            <h3 class="text-lg font-bold text-neutral-300 mt-6 mb-2">Boss Framework (Scalable)</h3>
+            <ul class="list-disc list-inside space-y-2 text-neutral-400 mb-6">
+                <li><strong class="text-neutral-200">IGrabbable Interface</strong> — 모든 적 유닛과 보스 약점 부위를 하나의 인터페이스로 통합, 저결합도(Low Coupling) 설계 달성</li>
+                <li><strong class="text-neutral-200">ArmorGauge System</strong> — 일반 공격은 차단하고 Blink/Slam으로만 파괴 가능한 가드 시스템 및 자동 재생 로직</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-neutral-300 mt-6 mb-2">Defensive Engineering</h3>
+            <ul class="list-disc list-inside space-y-2 text-neutral-400">
+                <li><strong class="text-neutral-200">HitStop Management</strong> — 다중 시간 정지 요청을 병합하는 전역 싱글톤 매니저로 레이스 컨디션 해결</li>
+                <li><strong class="text-neutral-200">Physics Safety</strong> — OverlapBox 기반 85% 축소 영역 검사로 거대 콜라이더의 벽 뚫림(Clipping) 현상 방지</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-neutral-200 mb-6 border-b border-neutral-800 pb-2">🗺️ Boss Roadmap — The 5 Trials</h2>
+            
+            <div class="overflow-x-auto border border-neutral-800 rounded-lg">
+                <table class="w-full text-sm text-left text-neutral-400">
+                    <thead class="bg-neutral-900 text-neutral-200 border-b border-neutral-800">
+                        <tr>
+                            <th class="px-4 py-3 text-center">단계</th>
+                            <th class="px-4 py-3">보스명</th>
+                            <th class="px-4 py-3">핵심 기믹</th>
+                            <th class="px-4 py-3">서사적 키워드</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-800 bg-neutral-950">
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 text-center font-mono">01</td>
+                            <td class="px-4 py-3 font-bold text-neutral-200">하운드 (Hound)</td>
+                            <td class="px-4 py-3">블링크 입문 / 유압 피스톤 그랩</td>
+                            <td class="px-4 py-3">분노</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 text-center font-mono">02</td>
+                            <td class="px-4 py-3 font-bold text-neutral-200">서류 (Paper)</td>
+                            <td class="px-4 py-3">패리 + 블링크 (탄막 대응)</td>
+                            <td class="px-4 py-3">무력감</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 text-center font-mono">03</td>
+                            <td class="px-4 py-3 font-bold text-neutral-200">형 (Brother)</td>
+                            <td class="px-4 py-3">단검 박고 강제 블링크 탈출</td>
+                            <td class="px-4 py-3">혼란</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 text-center font-mono">04</td>
+                            <td class="px-4 py-3 font-bold text-neutral-200">그림자 (Shadow)</td>
+                            <td class="px-4 py-3">비전투 퍼즐 / 잔상 스위칭</td>
+                            <td class="px-4 py-3">수용</td>
+                        </tr>
+                        <tr class="hover:bg-neutral-900/50 transition-colors">
+                            <td class="px-4 py-3 text-center font-mono">05</td>
+                            <td class="px-4 py-3 font-bold text-red-400">설계자 (Designer)</td>
+                            <td class="px-4 py-3">군단 소환 / 역패리 대응</td>
+                            <td class="px-4 py-3 text-red-400">선택</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-neutral-200 mb-6 border-b border-neutral-800 pb-2">🐛 주요 버그 픽스 및 조작 배타성 강화</h2>
+            
+            <blockquote class="border-l-4 border-red-900 pl-4 py-3 my-6 bg-neutral-900/30 text-neutral-400 italic">
+                <span class="font-bold text-red-400 block mb-1">목적: Blink-Grab-Slam 루프 중 런타임 예외 해소</span>
+                소프트 락 해제, 입력 가드(Input Guard), 상태 전이 안전성에 집중하여 시스템의 척추(Core)를 바로잡았습니다.
+            </blockquote>
+
+            <div class="space-y-4">
+                <div class="p-4 border border-neutral-800 rounded bg-neutral-900/20">
+                    <h4 class="font-bold text-neutral-200 mb-2">BUG-01 · GrabState 소프트 락 방어</h4>
+                    <p class="text-sm text-neutral-400">타겟 유실(_target == null) 시 무한 대기하던 로직을 수정, 즉시 IdleState로 복귀하는 탈출로 확보.</p>
+                </div>
+                
+                <div class="p-4 border border-neutral-800 rounded bg-neutral-900/20">
+                    <h4 class="font-bold text-neutral-200 mb-2">BUG-03 · 입력 가드 시스템 (Input Guard)</h4>
+                    <p class="text-sm text-neutral-400">Grab 및 Slam 상태 진행 중에는 단검 투척, 블링크 등 모든 입력을 차단. 자기 전이(Self-Transition) 버그 원천 차단.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="p-4 border border-yellow-900/50 bg-yellow-900/10 rounded-lg">
+                <h3 class="text-lg font-bold text-yellow-500 flex items-center gap-2 mb-2">
+                    <span>⚠️</span> 설정 주의사항 (Setup Warning)
+                </h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">
+                    <strong class="text-neutral-300">Ground Mask 동기화:</strong> PlayerMovement2D와 PlayerStateMachine의 레이어 마스크 설정이 이중화되어 있습니다. 인스펙터에서 두 항목이 동일한 Ground 레이어를 바라보는지 반드시 확인하십시오. (차후 전역 상수로 통합 예정)
+                </p>
+            </div>
+        </section>
+
+    </article>
+
+    <footer class="max-w-3xl mx-auto px-6 py-8 border-t border-neutral-900 text-center flex justify-between items-center text-sm text-neutral-600">
+        <a href="log_20260331.html" class="hover:text-neutral-400 transition-colors">← 이전: 코드 리팩토링</a>
+        <span>UNDER THE UMBRELLA · 2026</span>
+        <a href="log_20260402.html" class="hover:text-neutral-400 transition-colors">다음: Boss 설계 & 크레딧 →</a>
+    </footer>
+
+</body>
+</html>
