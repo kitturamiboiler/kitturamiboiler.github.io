@@ -136,15 +136,6 @@
     min-height: 100vh;
     background: #06060a;
     overflow: hidden;
-    /* [번개 연출 1] 배경 전체가 불규칙하게 번쩍이는 애니메이션 적용 */
-    animation: lightning-flash 17s infinite;
-  }
-  /* [번개 연출 2] 키프레임 설정: 아주 짧은 순간에 배경을 하얗게 켰다가 끔 */
-  @keyframes lightning-flash {
-    0%, 95%, 98%, 100% { background: #06060a; }
-    96% { background: rgba(200, 220, 255, 0.15); } /* 첫 번째 번쩍 */
-    97% { background: #06060a; }
-    97.5% { background: rgba(200, 220, 255, 0.3); } /* 두 번째 더 강하게 번쩍 */
   }
   #intro .rain {
     position: absolute; inset: 0;
@@ -152,8 +143,8 @@
   }
   #intro .rain-line {
     position: absolute; top: -20%;
-    width: 1.8px; height: 80px;
-    background: linear-gradient(to bottom, transparent, rgba(180,210,255,0.38), transparent);
+    width: 1px; height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(180,210,255,0.18), transparent);
     animation: i-fall linear infinite; opacity: 0;
   }
   #intro.active { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; }
@@ -1237,7 +1228,7 @@
     // 타겟 콘텐츠 표시
     document.getElementById(id).classList.add('active');
     // 페이지 타이틀 업데이트
-    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS', log0328: '03-28 Dagger Blink', log0329: '03-29 Auto Blink', log0331: '03-31 리팩토링', log0401a: '04-01 리팩토링 2', log0401b: '04-01 FSM', log0402: '04-02 Boss & Story', log0403a: '04-03 컴파일', log0403b: '04-03 인프라', log0404: '04-04 Git & Physics' };
+    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS', log0328: '03-28 Dagger Blink', log0329: '03-29 Auto Blink', log0331: '03-31 리팩토링', log0401a: '04-01 리팩토링 2', log0401b: '04-01 FSM', log0402: '04-02 Boss & Story', log0403a: '04-03 컴파일', log0403b: '04-03 인프라', log0404: '04-04 Git & Physics', log0412: '04-12 Chapter1 GrayBox' };
     document.getElementById('page-title').textContent = titles[id] || '';
     window.scrollTo(0,0);
   }
@@ -2447,6 +2438,14 @@
 
   </div>
 
+
+    <div class="log-card" onclick="goTo('log0412')" style="--lc:#85B7EB">
+      <div class="log-date">2026-04-12</div>
+      <div class="log-title">챕터 1 그레이박스 · 공간·시스템·환경</div>
+      <div class="log-tags"><span class="log-tag">GrayBox</span><span class="log-tag">OpeningEvent</span><span class="log-tag">InputLock</span><span class="log-tag">NPC</span><span class="log-tag">Rain</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
   <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1e1e1e;font-family:'JetBrains Mono',monospace;font-size:11px;color:#333;text-align:center">
     각 일지를 클릭하면 상세 내용으로 연결됩니다.
   </div>
@@ -2986,5 +2985,194 @@ UI/                StruggleUI.cs</div>
 </div>
 
 </div>
+
+<div id="log0412" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-dot" style="background:#85B7EB"></span>
+        <span style="font-family:var(--mono);font-size:10px;color:#85B7EB;letter-spacing:0.2em">DEVLOG · 2026-04-12 · 일</span>
+      </div>
+      <h1>챕터 1 그레이박스 — 공간·시스템·환경</h1>
+      <div class="hero-meta">
+        <span class="hero-kw">GrayBox</span>
+        <span class="hero-kw">OpeningEventController</span>
+        <span class="hero-kw">InputLock</span>
+        <span class="hero-kw">NPCFollow2D</span>
+        <span class="hero-kw">우산 PPU16/8</span>
+        <span class="hero-kw">Rain</span>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- 스크린샷 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">📸</span>
+          <span class="sec-title">오늘의 씬 — 학교 앞, 우산 씌워주는 장면</span>
+          <span class="sec-badge badge-spike">GrayBox Live</span>
+        </div>
+        <img src="data:image/png;base64,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WNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOZWw17TchzQByWNkJ62GvabkOYgDksbIAFFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/2Q==" style="width:100%;border:1px solid #222;border-radius:4px;display:block;margin-bottom:8px;" alt="Chapter1 GrayBox — 학교 앞 우산 씌워주는 장면">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#444;text-align:center;margin-top:6px">
+          현(흰 박스) + 연서(분홍 박스) + 빨간 우산 · 비 파티클 · #06060a 배경
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>목적:</strong> 우산 핵심 오브젝트 전에 「9년 전 그날」의 공간 문법과 시스템적 제어권을 고정한다.<br>
+        예쁘게 그리기 전, 버그가 나기 어려운 로직 바닥을 다지는 단계.
+      </div>
+
+      <!-- 1. 레벨 디자인 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">1</span>
+          <span class="sec-title">레벨 디자인 — 공간 좌표 확정</span>
+          <span class="sec-badge badge-arch">Level Design</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>구간</th><th>내용</th></tr>
+          <tr><td><code>X = 0 ~ 40</code> 학교 정문</td><td>감정적 몰입을 위한 적막한 빗길 구간</td></tr>
+          <tr><td><code>X = 40</code> 목표 지점</td><td>연서(NPC) 배치, 처마 <code>Y = 4</code> 레이아웃</td></tr>
+          <tr><td><code>X = 42</code> 물리 차단</td><td>이벤트 전 무단 이탈 방지 — <code>Obj_StoryGate_School</code></td></tr>
+          <tr><td><code>X = 70</code> 점프 튜토리얼</td><td>3칸 규격 Gap — 기본 도약 메커니즘 검증</td></tr>
+          <tr><td><code>X = 100</code> 분식집 랜드마크</td><td><strong>10×6</strong> 거대 매스, 두 번째 시퀀스 도달점</td></tr>
+        </table></div>
+        <div class="callout info"><strong>월드 좌표:</strong> X = 100까지 바닥 공사 완료. 분식집 공간 매스 배치 완료.</div>
+      </div>
+
+      <!-- 2. 환경 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">2</span>
+          <span class="sec-title">시각적 환경 — 픽셀 파이프라인</span>
+          <span class="sec-badge badge-spike">Atmosphere ~90%</span>
+        </div>
+        <div class="card" style="--accent:#85B7EB">
+          <div class="card-title">Pixel Perfect 대응</div>
+          <div class="card-body"><p>홀수 해상도 경고(593×333) → <strong>16:9 고정 + 정수 배율 1280×720</strong>으로 픽셀 뭉개짐 방어.</p></div>
+        </div>
+        <div class="card" style="--accent:#0d1117">
+          <div class="card-title">배경 느와르 톤</div>
+          <div class="card-body"><p>Deep Black <code>#06060a</code>로 픽셀 실루엣 대비 강화.</p></div>
+        </div>
+        <div class="card" style="--accent:#85B7EB">
+          <div class="card-title">Rain 파티클</div>
+          <div class="card-body"><p>World Space 파티클 — 중력 1.5, 낙하 속도 20, <strong>Stretched Billboard</strong>로 빗줄기 질감. 환경 연출 ~90% 완료.</p></div>
+        </div>
+      </div>
+
+      <!-- 3. 입력 제어 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">3</span>
+          <span class="sec-title">이벤트 & 입력 제어 아키텍처</span>
+          <span class="sec-badge badge-fix">System 완료</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>항목</th><th>내용</th></tr>
+          <tr><td>제어권 분리</td><td><code>SetStoryInputLocked</code> — 컷씬·연출 중 돌발 입력 방어. PlayerMovement2D, Blink, Parry 전체 적용.</td></tr>
+          <tr><td>트리거</td><td><code>X ≈ 37</code> <code>OpeningEventController</code>로 연출 시작 시점 동기화</td></tr>
+          <tr><td>착지 후 잠금</td><td>공중 트리거 시 부유 방지 — <code>WaitUntilPlayerFloored</code> 계열</td></tr>
+          <tr><td>입력 억제</td><td>해제 직후 튐 완화 — 수평 입력 억제 ~0.08s + <code>Input.ResetInputAxes()</code></td></tr>
+          <tr><td>NPC 동행</td><td><code>NPCFollow2D</code> — 플레이어 대비 1.2× 속도, Follow Distance 1.5</td></tr>
+        </table></div>
+        <div class="callout warn">
+          <strong>⚠ X = 70 Gap 구간:</strong> 직선 추적만으로는 추락·끼임 리스크.<br>이후 Waypoint / Ghost Path 별도 방어 필요 — 코드 주석에 기록됨.
+        </div>
+      </div>
+
+      <!-- 4. 우산 연출 PPU -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">4</span>
+          <span class="sec-title">우산 오프닝 연출 — 픽셀·물리 감각</span>
+          <span class="sec-badge badge-perf">Umbrella</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>항목</th><th>내용</th></tr>
+          <tr><td>PPU / 픽셀</td><td>hold 스프라이트 <strong>PPU 16</strong> (1px = 0.0625). 펼침(open/pull)만 <strong>PPU 8</strong> (1px = 0.125).<br>상수: <code>OnePixelWorldUnitUmbrellaHoldPpu16</code> / <code>OnePixelWorldUnitUmbrellaPullPpu8</code></td></tr>
+          <tr><td>스미어</td><td>Stretch Y <strong>0.1 → 1.2</strong>, 0.05s, <code>SmoothStep</code> 적용 — 정점에서 기계적 선형 느낌 완화</td></tr>
+          <tr><td>무게 중심</td><td><code>VisualRoot</code> 로컬 Y <code>_bounceVisualLocalY</code> — 기본 <strong>−0.125</strong>(open/pull PPU8 기준 1px) + 팔로우스루로 원복</td></tr>
+          <tr><td>착지 스냅</td><td>타임아웃 Y 스냅 직후 1프레임 <code>_landingSnapMicroBounceLocalY</code> — 기본 <strong>−0.0625</strong>(hold PPU16 기준 1px)</td></tr>
+          <tr><td>Z 파이팅</td><td>우산 SpriteRenderer 로컬 Z <strong>−0.01</strong> 연출 구간 적용 후 원복</td></tr>
+          <tr><td>Animator</td><td><code>_storyVisualAnimator</code> None 허용. null 가드로 speed 조작만 수행</td></tr>
+        </table></div>
+      </div>
+
+      <!-- 5. VisualRoot -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">5</span>
+          <span class="sec-title">VisualRoot 분리 · 소팅 레이어</span>
+          <span class="sec-badge badge-arch">Hierarchy</span>
+        </div>
+        <div class="card" style="--accent:#AFA9EC">
+          <div class="card-title">VisualRoot 분리</div>
+          <div class="card-body"><p>물리 콜라이더와 시각 에셋 분리 — 우산 펼침 시 바운스·스쿼시가 본체 물리에 덜 미치도록.</p></div>
+        </div>
+        <div class="card" style="--accent:#AFA9EC">
+          <div class="card-title">소팅 레이어 확정</div>
+          <div class="card-body"><p>캐릭터 <strong>10</strong> / 우산 <strong>11</strong> 순서 확정 — 실루엣·간섭 방어. 그레이박스 씬에 연결 완료.</p></div>
+        </div>
+      </div>
+
+      <!-- 6. 진행률 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">6</span>
+          <span class="sec-title">진행률 스냅샷</span>
+          <span class="sec-badge badge-todo">Status</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>영역</th><th>상태</th></tr>
+          <tr><td>월드 좌표 설계</td><td style="color:#1D9E75;font-family:'JetBrains Mono',monospace">~100%</td></tr>
+          <tr><td>환경 연출 (비·배경)</td><td style="color:#FAC775;font-family:'JetBrains Mono',monospace">~90%</td></tr>
+          <tr><td>입력 제어·오프닝(우산)</td><td style="color:#1D9E75;font-family:'JetBrains Mono',monospace">기준선 완료</td></tr>
+          <tr><td>우산 스프라이트·하이어라키</td><td style="color:#FAC775;font-family:'JetBrains Mono',monospace">그레이박스 연결 완료 / 폴리싱 진행 중</td></tr>
+          <tr><td>분식집 '정지' 연출</td><td style="color:#f09595;font-family:'JetBrains Mono',monospace">0% — 공간 O, 무입력 씬 로직 X</td></tr>
+          <tr><td>가을 골목·인생네컷·전투 튜토</td><td style="color:#555;font-family:'JetBrains Mono',monospace">미착수 (다음 웨이브)</td></tr>
+        </table></div>
+      </div>
+
+      <!-- 7. 다음 세션 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">7</span>
+          <span class="sec-title">다음 세션에서 이어갈 일</span>
+          <span class="sec-badge badge-todo">Next</span>
+        </div>
+        <ul class="checklist">
+          <li>분식집 입력 완전 잠금 + 대화 + BGM/빗소리 믹스 — <code>SnackShopStoryController</code> 분리 권장</li>
+          <li>시네마틱 — 떡볶이 먹는 샷 카메라 줌인 (Cinemachine 또는 CameraFollow 확장)</li>
+          <li>인생네컷 구간 — 흑백 → 컬러 포스트프로세싱 (URP Volume 또는 셰이더)</li>
+          <li>전투 튜토 — 허수아비 적·히트스톱 0.1s 체험, 기존 HitStopManager 연결</li>
+        </ul>
+        <div class="callout info" style="margin-top:12px">
+          <strong>Git 커밋 제안:</strong> <code>feat: umbrella sequence pixel grid + opening story lock</code>
+        </div>
+      </div>
+
+      <!-- 8. 관련 파일 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">8</span>
+          <span class="sec-title">관련 파일</span>
+          <span class="sec-badge badge-arch">Files</span>
+        </div>
+        <div class="tree">Assets/Story/   OpeningEventController.cs
+                NPCFollow2D.cs
+Assets/Player/  PlayerMovement2D.cs        — IsFloorGrounded, SetStoryInputLocked, ReadHorizontalRaw
+                PlayerBlinkController2D.cs — 우산 스프라이트·스쿼시·스토리 입력 잠금
+                PlayerParryController2D.cs — 스토리 입력 잠금</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
