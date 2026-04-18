@@ -1228,7 +1228,7 @@
     // 타겟 콘텐츠 표시
     document.getElementById(id).classList.add('active');
     // 페이지 타이틀 업데이트
-    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS', log0328: '03-28 Dagger Blink', log0329: '03-29 Auto Blink', log0331: '03-31 리팩토링', log0401a: '04-01 리팩토링 2', log0401b: '04-01 FSM', log0402: '04-02 Boss & Story', log0403a: '04-03 컴파일', log0403b: '04-03 인프라', log0404: '04-04 Git & Physics', log0412: '04-12 Chapter1 GrayBox' };
+    const titles = { todo: 'TODO LIST', dash: 'DASHBOARD', level: 'LEVEL DESIGN', devlog: 'DEV LOGS', log0328: '03-28 Dagger Blink', log0329: '03-29 Auto Blink', log0331: '03-31 리팩토링', log0401a: '04-01 리팩토링 2', log0401b: '04-01 FSM', log0402: '04-02 Boss & Story', log0403a: '04-03 컴파일', log0403b: '04-03 인프라', log0404: '04-04 Git & Physics', log0412: '04-12 Chapter1 GrayBox', log0418: '04-18 Opening JSON Font' };
     document.getElementById('page-title').textContent = titles[id] || '';
     window.scrollTo(0,0);
   }
@@ -2446,6 +2446,14 @@
       <span class="log-arrow">→</span>
     </div>
 
+
+    <div class="log-card" onclick="goTo('log0418')" style="--lc:#1D9E75">
+      <div class="log-date">2026-04-18</div>
+      <div class="log-title">오프닝 시퀀스 데이터 파이프라인 · 폰트 베이킹 · UI 방어</div>
+      <div class="log-tags"><span class="log-tag">StoryJsonManager</span><span class="log-tag">AutoStart</span><span class="log-tag">TMP베이킹</span><span class="log-tag">FadeManager</span><span class="log-tag">누아르템포</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
   <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #1e1e1e;font-family:'JetBrains Mono',monospace;font-size:11px;color:#333;text-align:center">
     각 일지를 클릭하면 상세 내용으로 연결됩니다.
   </div>
@@ -3174,5 +3182,192 @@ Assets/Player/  PlayerMovement2D.cs        — IsFloorGrounded, SetStoryInputLoc
   </div>
 </div>
 
+
+<div id="log0418" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-dot" style="background:#1D9E75"></span>
+        <span style="font-family:var(--mono);font-size:10px;color:#1D9E75;letter-spacing:0.2em">DEVLOG · 2026-04-18 · 금</span>
+      </div>
+      <h1>오프닝 시퀀스 데이터 파이프라인 · 폰트 베이킹 · UI 방어</h1>
+      <div class="hero-meta">
+        <span class="hero-kw">StoryJsonManager</span>
+        <span class="hero-kw">AutoStartSequence</span>
+        <span class="hero-kw">TMP 베이킹 449ms</span>
+        <span class="hero-kw">FadeManager</span>
+        <span class="hero-kw">의성어 UI</span>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- 스크린샷 자리 -->
+      <div id="log0418-screenshot-area"></div>
+
+      <div class="callout info">
+        <strong>핵심:</strong> 데이터·파이프라인이 준비되기 전에 연출이 발화했다는 점을 1순위로 봤다.<br>
+        "코드가 틀렸다"가 아니라 <strong>순서 문제</strong>.
+      </div>
+
+      <!-- 1. 문제 상황 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">1</span>
+          <span class="sec-title">문제 상황 — Happy Path를 믿지 않기</span>
+          <span class="sec-badge badge-fix">진단</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>증상</th><th>가설 (1순위)</th></tr>
+          <tr>
+            <td>씬 시작 직후 컷씬이 안 돌아감</td>
+            <td><strong>선행 동작 부재</strong> — <code>ChapterStoryLoader</code>가 <code>Awake</code>에서 JSON을 주입하지만, <code>TriggerCutscene</code>을 <strong>즉시</strong> 점화하는 코드가 먼저 돌면 리스트가 비거나 레이스 컨디션 발생.</td>
+          </tr>
+          <tr>
+            <td>한글 폰트 베이킹 시 에디터 프리징</td>
+            <td><strong>타이밍/부하</strong> — Dynamic/OS 기본 세트 전체를 한 번에 구우면 불필요한 글리프 범위로 <strong>연산 폭발</strong> → 체감 ~2시간 멈춤.</td>
+          </tr>
+        </table></div>
+      </div>
+
+      <!-- 2. 해결 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">2</span>
+          <span class="sec-title">JSON 스토리 데이터 외부화</span>
+          <span class="sec-badge badge-arch">Architecture</span>
+        </div>
+        <div class="card" style="--accent:#1D9E75">
+          <div class="card-title">StoryJsonManager</div>
+          <div class="card-body">
+            <p><code>Assets/Resources/StoryData/Chapter1_Opening.json</code> — <code>StoryDatabase.GetChapter1Lines()</code>를 한글·줄바꿈 포함 이전.</p>
+            <p><code>Resources.Load&lt;TextAsset&gt;</code> + <code>JsonUtility</code>. 라인별 <strong>공백 제외 26자</strong> 초과 시 <code>LogError</code>로 즉시 알림.</p>
+            <p>오프닝 구간 — <strong>line id 53</strong>(FadeIn)까지만 리스트에 담고, 이후 라인은 다음 씬용으로 분리.</p>
+          </div>
+        </div>
+        <div class="card" style="--accent:#1D9E75">
+          <div class="card-title">id 구분</div>
+          <div class="card-body">
+            <p><code>CutsceneLine.lineId</code> — <strong>id 43</strong> 의성어「꼬르륵」 / <strong>id 53</strong> 암전 종료를 코드에서 구분.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">3</span>
+          <span class="sec-title">선행 동작 — AutoStartSequence</span>
+          <span class="sec-badge badge-spike">핵심 수정</span>
+        </div>
+        <div class="card" style="--accent:#1D9E75">
+          <div class="card-title">0.1s 버퍼</div>
+          <div class="card-body">
+            <p><code>IEnumerator Start()</code>에서 <strong>0.1s 대기</strong> 후 <code>TriggerCutscene.Play()</code> 호출.</p>
+            <p>같은 프레임에 JSON 주입과 컷씬 점화가 붙지 않도록 버퍼를 둔 것이 핵심.</p>
+            <p><code>TriggerCutscene</code>에 <code>Play() → ActivateTrigger()</code> 공개 API 추가 — 충돌 없이 강제 점화.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">4</span>
+          <span class="sec-title">오프닝 물리 템포</span>
+          <span class="sec-badge badge-perf">PlayerMovement2D</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>항목</th><th>내용</th></tr>
+          <tr><td>오프닝 전용 물리 주입</td><td><code>BeginOpeningSequencePhysics</code> / <code>EndOpeningSequencePhysics</code></td></tr>
+          <tr><td>초기 설계</td><td>느린 누아르 질감 (move <strong>2.2</strong>)</td></tr>
+          <tr><td>플레이 검증 후 조정</td><td>그레이박스 장애물 통과 불가 → <strong>move 3.5 / jump 10</strong>으로 수정</td></tr>
+          <tr><td>안전 기본값</td><td>복구 실패 시 move <strong>4</strong> / jump <strong>12</strong></td></tr>
+          <tr><td>걷기 전용 잠금</td><td><code>walkOnlyNoJump</code> — 스토리 구간 점프 연타로 트리거 스킵 방어</td></tr>
+        </table></div>
+        <div class="callout info">수치는 <code>OpeningSequencePhysicsDefaults</code>에 상수화.</div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">5</span>
+          <span class="sec-title">의성어 · 암전 연출</span>
+          <span class="sec-badge badge-arch">UI</span>
+        </div>
+        <div class="card" style="--accent:#FAC775">
+          <div class="card-title">id 43「꼬르륵」 의성어</div>
+          <div class="card-body">
+            <p><code>CombatDialogueUI.ShowAmbientOnomatopoeia</code> — 배경 알파 스케일·본문 색 톤 다운, TMP rich text <em>이탤릭</em>.</p>
+          </div>
+        </div>
+        <div class="card" style="--accent:#555">
+          <div class="card-title">id 53 FadeIn — 암전</div>
+          <div class="card-body">
+            <p><code>FadeManager</code> — CanvasGroup으로 암전, <code>blocksRaycasts</code>/<code>interactable</code>로 입력 차단.</p>
+            <p><code>FinalizeOpening</code> 이벤트로 1장 시퀀스 종료 + 제어권 정리.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 폰트 베이킹 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">6</span>
+          <span class="sec-title">폰트 베이킹 — TMP</span>
+          <span class="sec-badge badge-perf">~2h → 449ms</span>
+        </div>
+        <div class="card" style="--accent:#1D9E75">
+          <div class="card-title">Characters from File 방식으로 전환</div>
+          <div class="card-body">
+            <p>Dynamic/OS 기본 세트 전체 → <strong>필요 글리프만 제한</strong>으로 전환.</p>
+            <p>연산 시간: <strong>~2시간 → 449ms</strong> (99% 이상 단축).</p>
+            <p>타협이 아니라 <strong>필요 글리프만 조준한 데이터 설계 = 정밀 사격</strong>.</p>
+          </div>
+        </div>
+        <div class="callout warn">
+          <strong>내일 예정:</strong> 특수 따옴표(Unicode U+2018–U+201F) 정규화·폰트 글리프 포함 여부 점검.<br>
+          잘못 들어가면 베이킹 범위가 다시 불어나거나 줄바꿈·26자 검증과 충돌 가능.
+        </div>
+      </div>
+
+      <!-- 디버깅 원칙 매핑 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">7</span>
+          <span class="sec-title">디버깅 5원칙 매핑</span>
+          <span class="sec-badge badge-arch">Review</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>원칙</th><th>적용</th></tr>
+          <tr><td><strong>선행 동작</strong></td><td>JSON 주입 이후를 고려한 0.1s 대기 + 트리거 강제 점화 순서 고정</td></tr>
+          <tr><td><strong>타이밍</strong></td><td>컷씬 라인 duration·Fade <strong>0.9s</strong>와 FadeManager 기본 암전 시간 정렬</td></tr>
+          <tr><td><strong>스미어/가독성</strong></td><td>의성어 라인 패널·텍스트 대비 조정, Padding 5px 아웃라인 실험</td></tr>
+          <tr><td><strong>무게 중심</strong></td><td>UI 앵커 (0,0) 레이아웃이 연출과 겹치는지 확인 — <span style="color:#f09595">내일 수정 예약</span></td></tr>
+          <tr><td><strong>Follow-through</strong></td><td>JSON 파싱 실패 시 Missing Data 대사, 물리 복구 실패 시 기본 수치, 암전 후 FinalizeOpening으로 제어권 정리</td></tr>
+        </table></div>
+      </div>
+
+      <!-- 관련 파일 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">8</span>
+          <span class="sec-title">관련 파일</span>
+          <span class="sec-badge badge-arch">Files</span>
+        </div>
+        <div class="tree">Assets/Resources/StoryData/  Chapter1_Opening.json
+Assets/Dialogue/             StoryJsonManager.cs
+                             ChapterStoryLoader.cs
+Assets/Story/                AutoStartSequence.cs
+Assets/Dialogue/             TriggerCutscene.cs
+Assets/Player/               PlayerMovement2D.cs
+                             OpeningSequencePhysicsDefaults.cs
+Assets/Dialogue/             CombatDialogueUI.cs
+Assets/System/               FadeManager.cs
+Assets/Ending/               CutscenePlayer.cs</div>
+      </div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
