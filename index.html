@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -2363,7 +2365,7 @@
 
   <!-- 진행 표시줄 -->
   <div style="background:#141414;border:1px solid #222;border-radius:10px;padding:16px 20px;margin-bottom:2.5rem;display:flex;align-items:center;gap:16px">
-    <span style="font-size:11px;color:#555;white-space:nowrap;font-family:'JetBrains Mono',monospace">총 9회차</span>
+    <span style="font-size:11px;color:#555;white-space:nowrap;font-family:'JetBrains Mono',monospace">총 12회차</span>
     <div style="flex:1;height:4px;background:#222;border-radius:2px;overflow:hidden">
       <div style="width:9%;height:100%;background:#85B7EB;border-radius:2px"></div>
     </div>
@@ -2451,6 +2453,13 @@
       <div class="log-date">2026-04-18</div>
       <div class="log-title">오프닝 시퀀스 데이터 파이프라인 · 폰트 베이킹 · UI 방어</div>
       <div class="log-tags"><span class="log-tag">StoryJsonManager</span><span class="log-tag">AutoStart</span><span class="log-tag">TMP베이킹</span><span class="log-tag">FadeManager</span><span class="log-tag">누아르템포</span></div>
+      <span class="log-arrow">→</span>
+    </div>
+
+    <div class="log-card" onclick="goTo('log0419')" style="--lc:#5DCAA5">
+      <div class="log-date">2026-04-19</div>
+      <div class="log-title">오프닝 감독(GameInitializer) · Cutscene Resume 방어 · 조작권 Handoff · 스토리 트리거</div>
+      <div class="log-tags"><span class="log-tag">GameInitializer</span><span class="log-tag">PlayUntil</span><span class="log-tag">ResumeFromID</span><span class="log-tag">Handoff</span><span class="log-tag">암전버그</span></div>
       <span class="log-arrow">→</span>
     </div>
 
@@ -3182,6 +3191,200 @@ Assets/Player/  PlayerMovement2D.cs        — IsFloorGrounded, SetStoryInputLoc
   </div>
 </div>
 
+
+<div id="log0419" class="content">
+  <div class="log-detail">
+    <button class="log-back" onclick="goTo('devlog')">← DEV LOGS 목록으로</button>
+
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <span class="hero-dot" style="background:#5DCAA5"></span>
+        <span style="font-family:var(--mono);font-size:10px;color:#5DCAA5;letter-spacing:0.2em">DEVLOG · 2026-04-19 · 일</span>
+      </div>
+      <h1>오프닝 감독(GameInitializer) · Cutscene Resume 방어 · 조작권 Handoff · 스토리 트리거</h1>
+      <div class="hero-meta">
+        <span class="hero-kw">GameInitializer</span>
+        <span class="hero-kw">CutscenePlayer</span>
+        <span class="hero-kw">PrepareStoryUiForResume</span>
+        <span class="hero-kw">IPlayerCutsceneHandoff</span>
+        <span class="hero-kw">StoryEventTrigger</span>
+        <span class="hero-kw">PlayUntil(22)</span>
+        <span class="hero-kw">잔존 암전 버그</span>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <div class="callout info">
+        <strong>맥락:</strong> 1장 오프닝을 JSON lineId 기준으로 끊어 읽고(<code>PlayUntil</code>), 트리거로 재개(<code>ResumeFromID</code>)하는 <strong>감독 / 서사 / 물리</strong> 경계를 정리한 날.
+      </div>
+
+      <!-- 1. 작업 요약 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">1</span>
+          <span class="sec-title">오늘의 작업 요약</span>
+          <span class="sec-badge badge-spike">Work Log</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>구분</th><th>작업 내용</th><th>달성 · 의도</th></tr>
+          <tr>
+            <td><strong>시스템 구축</strong></td>
+            <td><code>GameInitializer.cs</code> 추가</td>
+            <td>씬 진입 시 <code>Chapter1_Opening</code> JSON 로드 → <code>PlayUntil(22)</code>로 22번 라인까지 자동 재생 후 <code>WaitingForTrigger</code> 대기. <code>Start()</code>는 <strong>1프레임 양보 + 선행 유예(기본 0.15s)</strong> 후 <code>ResolveAndPlay()</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>방어 설계</strong></td>
+            <td><code>CutscenePlayer.PrepareStoryUiForResume()</code></td>
+            <td><code>ResumeFromID</code> 직전 Narration/Dialogue <code>CanvasGroup</code> 활성화 + alpha 1. <code>_fadeOverlay</code>(Canvas_Fade)가 암전(~1)으로 남은 경우 alpha 0·비활성으로 잔상 제거.</td>
+          </tr>
+          <tr>
+            <td><strong>지휘권 정리</strong></td>
+            <td>트리거·초기화 역할 분리</td>
+            <td><code>GameInitializer</code>가 <strong>시작 대사</strong>를 담당하고, 물리 트리거는 <code>ResumeFromID(23)</code> 등 <strong>전환만</strong> 담당. 스폰 인접 이중 점화·인덱스 꼬임·교차 보행 위험 문서화.</td>
+          </tr>
+          <tr>
+            <td><strong>시각·텍스트</strong></td>
+            <td>TMP · 레이아웃</td>
+            <td>나레이션 줄바꿈(JSON <code>\n</code>) → 공백 합치기 옵션, 화자–본문 구분 문자, 인스펙터 Header 라벨 정리. <strong>폰트·레이어는 씬에서 수동 할당 전제</strong>(잔존 이슈).</td>
+          </tr>
+        </table></div>
+      </div>
+
+      <!-- 2. 산출물 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">2</span>
+          <span class="sec-title">오늘 추가 · 수정한 산출물</span>
+          <span class="sec-badge badge-arch">Deliverables</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>파일 · 컴포넌트</th><th>역할</th></tr>
+          <tr><td><code>Assets/Story/GameInitializer.cs</code></td><td>씬 진입 시 스토리 키·<code>PlayUntil</code> lineId 로드·실행. UnityEvent용 <code>ResolveAndPlay()</code>. <code>ChapterStoryLoader</code>와 동일한 JSON 분기.</td></tr>
+          <tr><td><code>Assets/Scripts/IPlayerCutsceneHandoff.cs</code></td><td><code>SetCutsceneMode</code> / <code>InjectVirtualInput</code> 계약.</td></tr>
+          <tr><td><code>Assets/Story/StoryEventTrigger.cs</code></td><td><code>OnTriggerEnter2D</code> + <code>CompareTag("Player")</code> → <strong>1회 발동 후 Collider 비활성</strong>.</td></tr>
+          <tr><td><code>Assets/Player/PlayerMovement2D.cs</code></td><td>컷신 모드·가상 입력·<code>ApplyResumeInputSuppressPulse</code>·FSM용 <code>GetMovementHorizontalAxis</code>.</td></tr>
+          <tr><td><code>Assets/Player/PlayerBlinkController2D.cs</code></td><td><code>SyncCutsceneMode</code>, <code>ApplyResumeInputSuppressPulse</code>.</td></tr>
+          <tr><td><code>Assets/Player/PlayerParryController2D.cs</code></td><td>컷신·재개 입력 억제 중 패리 차단.</td></tr>
+          <tr><td><code>Assets/Player/PlayerStateMachine.cs</code></td><td><code>GetMovementHorizontalAxis()</code>, <code>PlayerMovement</code> 노출.</td></tr>
+          <tr><td><code>Assets/Player/States/IdleState.cs</code> / <code>RunState.cs</code></td><td>실제 축을 머신 경유로 통일.</td></tr>
+          <tr><td><code>Assets/Player/States/BlinkState.cs</code></td><td>컷신 중 Shift 블링크 차단.</td></tr>
+          <tr><td><code>Assets/Ending/CutscenePlayer.cs</code></td><td><code>CutsceneState</code>, <code>PlayUntil</code> / <code>ResumeFromID</code>, <code>PrepareStoryUiForResume</code>, 라인 ID UnityEvent 훅, 재개 입력 억제 코루틴, <code>PlayNextLine</code> + Context Menu 등.</td></tr>
+        </table></div>
+        <div class="callout info">
+          <strong>연출 분리 원칙:</strong> <code>OpeningEventController</code>는 우산 스쿼시·NPC 추적 등 <strong>연출 전용</strong>(Anticipation ~0.2s, Smear ~0.05s, Follow Distance 등)으로 기존대로 유지. 오프닝 대본의 "언제까지 읽을지"는 <code>GameInitializer + CutscenePlayer</code> 조합으로 분리.
+        </div>
+      </div>
+
+      <!-- 3. 잔존 문제 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">3</span>
+          <span class="sec-title">잔존 문제점 — 반드시 추적</span>
+          <span class="sec-badge badge-fix">Bug</span>
+        </div>
+        <div class="bug">
+          <div class="bug-id">현상</div>
+          <div class="bug-desc">연서 트리거 이후 우산 연출은 동작하는데, <strong>대사창은 암전·미표시에 가깝게 남는다</strong>고 보고됨.</div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>축</th><th>가설</th><th>검증 포인트</th></tr>
+          <tr>
+            <td><strong>교차 보행</strong></td>
+            <td>카메라 Culling Mask에서 <strong>UI 레이어 미포함</strong></td>
+            <td>Main / UI Camera가 UI 레이어를 렌더하지 않음 → 로직상 켜져도 화면에 안 보임.</td>
+          </tr>
+          <tr>
+            <td><strong>무게 중심</strong></td>
+            <td><strong>데이터–TMP 참조 단절</strong></td>
+            <td>인스펙터에 <code>Body_Text</code> 등이 "New Text" 미교체, 또는 <code>ResumeFromID(23)</code> 시점에 JSON id 23 라인 부재·파싱 오류로 텍스트 주입 전 중단.</td>
+          </tr>
+          <tr>
+            <td><strong>회수 / 스미어</strong></td>
+            <td><strong>Sorting Order · Canvas 순서</strong></td>
+            <td><code>Canvas_Fade</code> 또는 배경 Canvas가 <code>Canvas_Dialogue</code>보다 위에 있어 글자가 뒤에 가림.</td>
+          </tr>
+        </table></div>
+        <div class="callout warn">
+          <code>PrepareStoryUiForResume</code>으로 패널·전역 Fade 오버레이는 한 번 더 정리했으나, <strong>별도 FadeManager 전용 오버레이·카메라 마스크·소팅</strong>은 씬 데이터 점검이 필요하다.
+        </div>
+      </div>
+
+      <!-- 4. 다음 세션 첫 액션 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">4</span>
+          <span class="sec-title">다음 세션 첫 액션</span>
+          <span class="sec-badge badge-todo">Checklist</span>
+        </div>
+        <ul class="checklist">
+          <li><code>Chapter1_Opening.json</code>에서 <strong>id 23</strong> 라인 존재·타입·<code>text</code> 필드 형식 확인.</li>
+          <li><strong>Main / UI Camera</strong>의 <strong>Culling Mask</strong>에 <strong>UI</strong> 포함 여부 확인.</li>
+          <li><code>Canvas_Dialogue</code>(또는 동일 역할 Canvas)의 <strong>Sort Order</strong>를 전면 Fade·월드보다 충분히 높게(예: 100+) 설정.</li>
+          <li>CutscenePlayer 인스펙터의 <strong>Narration / Dialogue / Speaker TMP</strong> 및 <strong>Font Asset</strong> 재확인.</li>
+        </ul>
+      </div>
+
+      <!-- 5. 디렉터 노트 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">5</span>
+          <span class="sec-title">디렉터 노트</span>
+          <span class="sec-badge badge-arch">Director</span>
+        </div>
+        <div class="callout warn">
+          <strong>이중 점화 주의:</strong> 시작점에 <code>StoryEventTrigger</code>와 <code>GameInitializer</code>의 <code>PlayUntil</code>이 같은 대사를 이중 점화하지 않도록, <strong>Resume·전환은 한 트리거에만</strong> 연결하고 스폰과 <strong>콜라이더 겹침</strong>을 피할 것.
+        </div>
+        <div class="card" style="--accent:#5DCAA5">
+          <div class="card-title">OpeningEventController 권장 수치 (참고)</div>
+          <div class="card-body">
+            <p>Anticipation Hold <strong>0.2s</strong> · Smear <strong>0.05s</strong> · Follow Distance <strong>1.5</strong></p>
+            <p><strong>Restore Player Control</strong> 켜서 시퀀스 후 조작권 복귀 확인.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. 관련 경로 -->
+      <div class="sec">
+        <div class="sec-head">
+          <span class="sec-num">6</span>
+          <span class="sec-title">관련 경로 — 빠른 점프</span>
+          <span class="sec-badge badge-arch">Files</span>
+        </div>
+        <div class="tbl-wrap"><table>
+          <tr><th>영역</th><th>경로</th></tr>
+          <tr><td>오프닝 JSON</td><td><code>Assets/Resources/StoryData/Chapter1_Opening.json</code></td></tr>
+          <tr><td>감독 진입</td><td><code>Assets/Story/GameInitializer.cs</code></td></tr>
+          <tr><td>컷신 재생기</td><td><code>Assets/Ending/CutscenePlayer.cs</code></td></tr>
+          <tr><td>조작 Handoff</td><td><code>Assets/Scripts/IPlayerCutsceneHandoff.cs</code>, <code>Assets/Player/PlayerMovement2D.cs</code></td></tr>
+          <tr><td>공간 트리거</td><td><code>Assets/Story/StoryEventTrigger.cs</code></td></tr>
+          <tr><td>JSON 로더</td><td><code>Assets/Dialogue/StoryJsonManager.cs</code>, <code>ChapterStoryLoader.cs</code></td></tr>
+          <tr><td>우산 연출</td><td><code>Assets/Story/OpeningEventController.cs</code></td></tr>
+        </table></div>
+        <div class="tree">Assets/Resources/StoryData/  Chapter1_Opening.json
+Assets/Story/                GameInitializer.cs
+                             StoryEventTrigger.cs
+                             OpeningEventController.cs
+Assets/Ending/               CutscenePlayer.cs
+Assets/Scripts/              IPlayerCutsceneHandoff.cs
+Assets/Player/               PlayerMovement2D.cs
+                             PlayerBlinkController2D.cs
+                             PlayerParryController2D.cs
+                             PlayerStateMachine.cs
+                             States/IdleState.cs
+                             States/RunState.cs
+                             States/BlinkState.cs
+Assets/Dialogue/             StoryJsonManager.cs
+                             ChapterStoryLoader.cs</div>
+      </div>
+
+      <div class="callout info" style="margin-top:2rem">
+        <strong>한 줄 결산:</strong> "우산이 펼쳐지는 물리적 찰나"는 올라갔고, <strong>대사가 안 보이는 문제</strong>는 렌더·소팅·데이터·참조 중 하나로 수렴한다 — 다음 세션 첫 10분에 위 체크리스트로 압박하면 된다.
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <div id="log0418" class="content">
   <div class="log-detail">
